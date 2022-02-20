@@ -11,7 +11,7 @@ const Header = (props: { area: string }) => {
   const { area } = props;
   return (
     <DivHeaderContainer area={area}>
-      <DivTitle> CMS grass</DivTitle>
+      <DivTitle> CMS grass prefix:{prefix}</DivTitle>
       <DivImgAvatar>
         <ImgAvatar
           alt="avatar"

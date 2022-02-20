@@ -3,6 +3,7 @@ import { Provider } from "react-redux";
 import store from "../app/store";
 
 export const prefix = process.env.BASE_PATH || "";
+
 export default function MyApp({ Component, pageProps }) {
   function SafeHydrate({ children }) {
     return (
