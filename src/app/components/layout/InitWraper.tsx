@@ -20,7 +20,6 @@ const HeaderFooterWraper = ({ children }) => {
         />
       </Head>
       <Header area="nav" />
-      jjj{prefix}
       {children}
       <LeftNav area="left" />
     </DivInitWraperContainer>

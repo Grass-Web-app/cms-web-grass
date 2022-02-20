@@ -1,11 +1,12 @@
 import React from "react";
-import { prefix } from "../../../pages/_app";
+
 import {
   DivHeaderContainer,
   DivImgAvatar,
   DivTitle,
   ImgAvatar,
 } from "./styledheader";
+const prefix = process.env.BASE_PATH || "ano coso";
 
 const Header = (props: { area: string }) => {
   const { area } = props;
