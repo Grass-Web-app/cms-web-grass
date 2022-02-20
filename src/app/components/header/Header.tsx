@@ -6,7 +6,7 @@ import {
   DivTitle,
   ImgAvatar,
 } from "./styledheader";
-const prefix = process.env.BASE_PATH || "ano coso";
+const prefix = process.env.NEXT_PUBLIC_BASE_PATH || "ano coso";
 
 const Header = (props: { area: string }) => {
   const { area } = props;
