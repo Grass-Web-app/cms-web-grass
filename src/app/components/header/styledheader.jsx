@@ -18,10 +18,10 @@ export const DivTitle = styled.div`
 `;
 
 export const DivImgAvatar = styled.div`
-  border-style: solid;
-  border-width: 1px;
   width: 50px;
   height: 50px;
+  border-radius: 50%;
+  overflow: hidden;
 `;
 
 export const ImgAvatar = styled.img`
