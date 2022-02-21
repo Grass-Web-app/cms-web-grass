@@ -6,9 +6,10 @@ export const DivInitWraperContainer = styled.div`
   width: 100%;
   height: 100vh;
   display: grid;
-  grid-template-columns: 12% 88%;
+  grid-template-columns: 15% 85%;
   grid-template-rows: 10% 90%;
   grid-template-areas:
     "left nav"
     "left .";
+    
 `;
