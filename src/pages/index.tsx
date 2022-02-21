@@ -6,13 +6,12 @@ import HeaderFooterWraper from "../app/components/layout/InitWraper";
 const IndexPage = () => {
   const { push, pathname } = useRouter();
   useEffect(() => {
-    if (pathname === "/") push("/dashboard");
+    if (pathname === "/") push("/catalog");
   }, []);
 
   return (
     <HeaderFooterWraper>
-      <>
-      </>
+      <></>
     </HeaderFooterWraper>
   );
 };
