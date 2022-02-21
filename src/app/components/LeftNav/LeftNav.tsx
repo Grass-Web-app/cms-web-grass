@@ -75,7 +75,7 @@ const LeftNav = (props: { area: string }) => {
                 bg={background.toString()}
               >
                 <DivImgIcon>
-                  <ImgIcon alt="icon" src={prefix + icon} />
+                  <ImgIcon alt="icon" src={icon} />
                 </DivImgIcon>
                 <PText>{title}</PText>
               </DivTextOption>
