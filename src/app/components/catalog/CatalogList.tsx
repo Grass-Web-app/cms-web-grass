@@ -16,11 +16,16 @@ import {
   ImgShowOptions,
   DivIconOptionsContainer,
 } from "./styledCatalog";
-const CatalogList = () => {
+const CatalogList = (props: {
+  stateNew: boolean;
+  addNew: (dat: boolean) => void;
+}) => {
+  const { addNew, stateNew } = props;
+
   return (
     <DivContainerCatalog>
       <DivAddNew>
-        <ButtonAddList>
+        <ButtonAddList onClick={() => addNew(!stateNew)}>
           <TextAdd>Agregar nueva</TextAdd>
           <DivIcon>
             <ImgIcon
@@ -63,7 +68,7 @@ const CatalogList = () => {
             <DivIconOptionsContainer>
               <ImgShowOptions
                 alt="image"
-                src={prefix + require("../../../../assets/image/options.png")}
+                src={require("../../../../assets/image/options.png")}
               />
             </DivIconOptionsContainer>
           </DivTextContainer>
