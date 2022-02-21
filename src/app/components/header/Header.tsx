@@ -50,7 +50,7 @@ const Header = (props: { area: string }) => {
           <DivArrow state={arrow.toString()}>
             <ImgArrow
               alr="arrow"
-              src={prefix + require("../../../../assets/icons/downArrow.svg")}
+              src={require("../../../../assets/icons/downArrow.svg")}
             />
           </DivArrow>
         </DivUserArrow>

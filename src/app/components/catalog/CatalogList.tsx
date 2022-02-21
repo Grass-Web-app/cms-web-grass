@@ -25,7 +25,7 @@ const CatalogList = () => {
           <DivIcon>
             <ImgIcon
               alt="icon"
-              src={prefix + require("../../../../assets/icons/mas.svg")}
+              src={require("../../../../assets/icons/mas.svg")}
             />
           </DivIcon>
         </ButtonAddList>
@@ -93,7 +93,7 @@ const CatalogList = () => {
             <DivIconOptionsContainer>
               <ImgShowOptions
                 alt="image"
-                src={prefix + require("../../../../assets/image/options.png")}
+                src={require("../../../../assets/image/options.png")}
               />
             </DivIconOptionsContainer>
           </DivTextContainer>
