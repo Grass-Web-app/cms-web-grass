@@ -81,10 +81,12 @@ const LeftNav = (props: { area: string }) => {
                 </DivImgIcon>
                 <PText>{title}</PText>
                 <DivImgArrow>
-                  <ImgRightArrow
-                    alt="arrow"
-                    src={require("../../../../assets/icons/leftArrow.svg")}
-                  />
+                  {!background && (
+                    <ImgRightArrow
+                      alt="arrow"
+                      src={require("../../../../assets/icons/leftArrow.svg")}
+                    />
+                  )}
                 </DivImgArrow>
               </DivTextOption>
             );
