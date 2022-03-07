@@ -33,6 +33,7 @@ export const DivTextOption = styled.div`
   display: flex;
   background: ${(props) => (props.bg === "true" ? "#C7E6FA" : "white")};
   cursor: pointer;
+  justify-content: space-around;
 `;
 
 export const PText = styled.p`
@@ -44,6 +45,18 @@ export const DivImgIcon = styled.div`
   display: flex;
   align-items: center;
   margin-left: 5%;
+`;
+
+export const DivImgArrow = styled.div`
+  height: 100%;
+  transform: rotate(180deg);
+  display: flex;
+  align-items: center;
+`;
+
+export const ImgRightArrow = styled.img`
+  height: 45%;
+  width: auto;
 `;
 
 export const ImgIcon = styled.img`
