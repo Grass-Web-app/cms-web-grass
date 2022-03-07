@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const DivLeftNavContainer = styled.div`
   grid-area: ${(props) => props.area};
-  background: #C7E6FA;
+  background: #c7e6fa;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -33,16 +33,30 @@ export const DivTextOption = styled.div`
   display: flex;
   background: ${(props) => (props.bg === "true" ? "#C7E6FA" : "white")};
   cursor: pointer;
+  justify-content: space-around;
 `;
 
 export const PText = styled.p`
   margin-left: 5%;
+  font-size: 1vw;
 `;
 
 export const DivImgIcon = styled.div`
   display: flex;
   align-items: center;
   margin-left: 5%;
+`;
+
+export const DivImgArrow = styled.div`
+  height: 100%;
+  transform: rotate(180deg);
+  display: flex;
+  align-items: center;
+`;
+
+export const ImgRightArrow = styled.img`
+  height: 45%;
+  width: auto;
 `;
 
 export const ImgIcon = styled.img`

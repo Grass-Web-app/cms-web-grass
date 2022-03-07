@@ -5,26 +5,20 @@ import {
   DivButtons,
   DivContainerFormCatalog,
   DivFormulary,
-  DivImgCloud,
-  DivImgFormulary,
   DivInputContainer,
-  HavePicture,
   HR,
-  ImgCloud,
-  ImgFile,
   ImgIconArrow,
   InputDescription,
-  InputImg,
   InputNormal,
   PText,
-} from "./styledFormCatalog";
+} from "../catalog/styledFormCatalog";
 
-const FormCatalog = (props: {
+const FormEng = (props: {
   stateNew: boolean;
   addNew: (dat: boolean) => void;
 }) => {
   const { stateNew, addNew } = props;
-  const [file, setFile] = useState<null | any>(null);
+
   return (
     <DivContainerFormCatalog>
       <DivFormulary>
@@ -33,7 +27,7 @@ const FormCatalog = (props: {
             alt="arrow"
             src={require("../../../../assets/icons/leftArrow.svg")}
           />
-          Lista de Catalogo
+          Lista de Engineered
         </ButtonBackArrow>
         <HR />
         <DivInputContainer>
@@ -44,32 +38,9 @@ const FormCatalog = (props: {
           <PText>Subtitulo</PText>
           <InputNormal />
         </DivInputContainer>
-
-        <DivInputContainer>
-          <PText>Imagen</PText>
-          <DivImgFormulary>
-            {file !== null ? (
-              <HavePicture>
-                <ImgFile alt="file" src={URL.createObjectURL(file[0])} />
-              </HavePicture>
-            ) : (
-              <DivImgCloud>
-                <ImgCloud
-                  alt="cloud"
-                  src={require("../../../../assets/icons/nube.svg")}
-                />
-              </DivImgCloud>
-            )}
-            <InputImg
-              type="file"
-              onChange={(e: any) => setFile(e.target.files)}
-            />
-          </DivImgFormulary>
-        </DivInputContainer>
         <DivInputContainer>
           <PText>Description</PText>
-          <InputDescription  />
-          
+          <InputDescription />
         </DivInputContainer>
         <DivButtons>
           <ButtonAceptarCancel onClick={() => addNew(!stateNew)}>
@@ -84,4 +55,4 @@ const FormCatalog = (props: {
   );
 };
 
-export default FormCatalog;
+export default FormEng;

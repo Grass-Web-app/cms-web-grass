@@ -2,6 +2,7 @@ import { useRouter } from "next/router";
 import React from "react";
 import { prefix } from "../../../pages/_app";
 import {
+  DivImgArrow,
   DivImgIcon,
   DivImgLogo,
   DivLeftNavContainer,
@@ -11,6 +12,7 @@ import {
   DivTextOption,
   ImgIcon,
   ImgLogo,
+  ImgRightArrow,
   PMarkTextq,
   PText,
 } from "./styledleftnav";
@@ -51,7 +53,7 @@ const OptionsNAvigation = [
 const LeftNav = (props: { area: string }) => {
   const { area } = props;
   const { pathname, push } = useRouter();
-  const HandleNav = (path) => {
+  const HandleNav = (path: string) => {
     push(path);
   };
   return (
@@ -78,6 +80,12 @@ const LeftNav = (props: { area: string }) => {
                   <ImgIcon alt="icon" src={icon} />
                 </DivImgIcon>
                 <PText>{title}</PText>
+                <DivImgArrow>
+                  <ImgRightArrow
+                    alt="arrow"
+                    src={require("../../../../assets/icons/leftArrow.svg")}
+                  />
+                </DivImgArrow>
               </DivTextOption>
             );
           })}

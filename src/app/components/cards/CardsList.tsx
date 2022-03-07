@@ -12,7 +12,7 @@ import {
   TextAdd,
 } from "../catalog/styledCatalog";
 
-const EngiList = (props: {
+const CardsList = (props: {
   stateNew: boolean;
   addNew: (dat: boolean) => void;
 }) => {
@@ -29,7 +29,7 @@ const EngiList = (props: {
             />
           </DivIcon>
         </ButtonAddList>
-        <PWhere>Lista de Engineered</PWhere>
+        <PWhere>Lista de Cards</PWhere>
       </DivAddNew>
       <DivListOptions>
         <DivUpperList>
@@ -43,5 +43,4 @@ const EngiList = (props: {
     </DivContainerCatalog>
   );
 };
-
-export default EngiList;
+export default CardsList;

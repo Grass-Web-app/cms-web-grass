@@ -15,6 +15,7 @@ import {
   DivTextContainer,
   ImgShowOptions,
   DivIconOptionsContainer,
+  PWhere,
 } from "./styledCatalog";
 const CatalogList = (props: {
   stateNew: boolean;
@@ -34,6 +35,7 @@ const CatalogList = (props: {
             />
           </DivIcon>
         </ButtonAddList>
+        <PWhere>Lista de Catalogo</PWhere>
       </DivAddNew>
       <DivListOptions>
         <DivUpperList>
@@ -64,7 +66,6 @@ const CatalogList = (props: {
             </PtitleUpper>
           </DivTextContainer>
           <DivTextContainer>
-            Acciones
             <DivIconOptionsContainer>
               <ImgShowOptions
                 alt="image"
@@ -94,7 +95,6 @@ const CatalogList = (props: {
             </PtitleUpper>
           </DivTextContainer>
           <DivTextContainer>
-            Acciones
             <DivIconOptionsContainer>
               <ImgShowOptions
                 alt="image"
