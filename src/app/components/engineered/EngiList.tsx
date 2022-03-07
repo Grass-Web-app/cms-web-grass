@@ -35,8 +35,8 @@ const EngiList = (props: {
         <DivUpperList>
           <PtitleUpper>#Numero</PtitleUpper>
           <PtitleUpper>Title</PtitleUpper>
-          <PtitleUpper>Picture</PtitleUpper>
           <PtitleUpper>Subtitle</PtitleUpper>
+          <PtitleUpper>Description</PtitleUpper>
           <PtitleUpper></PtitleUpper>
         </DivUpperList>
       </DivListOptions>
