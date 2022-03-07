@@ -12,7 +12,7 @@ import {
   TextAdd,
 } from "../catalog/styledCatalog";
 
-const EngiList = (props: {
+const CarouselList = (props: {
   stateNew: boolean;
   addNew: (dat: boolean) => void;
 }) => {
@@ -29,7 +29,7 @@ const EngiList = (props: {
             />
           </DivIcon>
         </ButtonAddList>
-        <PWhere>Lista de Engineered</PWhere>
+        <PWhere>Lista de Carousel</PWhere>
       </DivAddNew>
       <DivListOptions>
         <DivUpperList>
@@ -44,4 +44,4 @@ const EngiList = (props: {
   );
 };
 
-export default EngiList;
+export default CarouselList;

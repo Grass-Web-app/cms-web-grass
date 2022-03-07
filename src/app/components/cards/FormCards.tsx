@@ -17,9 +17,9 @@ import {
   InputImg,
   InputNormal,
   PText,
-} from "./styledFormCatalog";
+} from "../catalog/styledFormCatalog";
 
-const FormCatalog = (props: {
+const FormCards = (props: {
   stateNew: boolean;
   addNew: (dat: boolean) => void;
 }) => {
@@ -33,7 +33,7 @@ const FormCatalog = (props: {
             alt="arrow"
             src={require("../../../../assets/icons/leftArrow.svg")}
           />
-          Lista de Catalogo
+          Lista de Cards
         </ButtonBackArrow>
         <HR />
         <DivInputContainer>
@@ -41,10 +41,13 @@ const FormCatalog = (props: {
           <InputNormal />
         </DivInputContainer>
         <DivInputContainer>
-          <PText>Subtitulo</PText>
+          <PText>Sub Title</PText>
           <InputNormal />
         </DivInputContainer>
-
+        <DivInputContainer>
+          <PText>Description</PText>
+          <InputDescription />
+        </DivInputContainer>
         <DivInputContainer>
           <PText>Imagen</PText>
           <DivImgFormulary>
@@ -66,11 +69,7 @@ const FormCatalog = (props: {
             />
           </DivImgFormulary>
         </DivInputContainer>
-        <DivInputContainer>
-          <PText>Description</PText>
-          <InputDescription  />
-          
-        </DivInputContainer>
+
         <DivButtons>
           <ButtonAceptarCancel onClick={() => addNew(!stateNew)}>
             Cancelar
@@ -83,5 +82,4 @@ const FormCatalog = (props: {
     </DivContainerFormCatalog>
   );
 };
-
-export default FormCatalog;
+export default FormCards;

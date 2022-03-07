@@ -1,13 +1,19 @@
 import styled from "styled-components";
 
-export const DivContainerCatalog = styled.div`
-  
-`;
+export const DivContainerCatalog = styled.div``;
 
 export const DivAddNew = styled.div`
   padding: 2%;
   display: flex;
   flex-direction: row-reverse;
+  justify-content: space-between;
+`;
+
+export const PWhere = styled.p`
+  font-size: 1.5vw;
+  margin: 0;
+  display: flex;
+  align-items: center;
 `;
 
 export const ButtonAddList = styled.button`
@@ -52,7 +58,7 @@ export const DivUpperList = styled.div`
   background: white;
   border-bottom-style: solid;
   border-width: 1px;
-  border-color: #DBE6FA;
+  border-color: #dbe6fa;
 `;
 
 export const PtitleUpper = styled.p`
@@ -85,7 +91,7 @@ export const DivIconOptionsContainer = styled.div`
   border-radius: 15px;
   overflow: hidden;
   &:hover {
-    background: white;
+    background: #f0f0f0;
   }
 `;
 export const ImgShowOptions = styled.img`

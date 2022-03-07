@@ -1,11 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
+import EngiList from "../../app/components/engineered/EngiList";
+import FormEng from "../../app/components/engineered/FormEng";
 
 import HeaderFooterWraper from "../../app/components/layout/InitWraper";
 
 const index = () => {
+  const [AddList, setAddList] = useState(false);
   return (
     <HeaderFooterWraper>
-      <>soy engee</>
+      {AddList ? (
+        <FormEng stateNew={AddList} addNew={setAddList} />
+      ) : (
+        <EngiList stateNew={AddList} addNew={setAddList} />
+      )}
     </HeaderFooterWraper>
   );
 };

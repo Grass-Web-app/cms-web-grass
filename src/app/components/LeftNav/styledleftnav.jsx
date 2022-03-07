@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const DivLeftNavContainer = styled.div`
   grid-area: ${(props) => props.area};
-  background: #C7E6FA;
+  background: #c7e6fa;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -37,6 +37,7 @@ export const DivTextOption = styled.div`
 
 export const PText = styled.p`
   margin-left: 5%;
+  font-size: 1vw;
 `;
 
 export const DivImgIcon = styled.div`
