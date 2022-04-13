@@ -30,11 +30,31 @@ export async function API(props: string) {
 }
 
 //Generalmente se utiliza esta funcion para obtener datos de un login
-export const ApiPost = async (props: string, dat: {}) => {
+export const ApiPost = async (props: string, dat: any) => {
   try {
-    const resp = await axios.post(`${URL}${props}`, dat);
+    const resp = await axios.post(`${URL}${props}`, dat, {
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+      },
+    });
     return resp;
   } catch (err) {
+    console.log(err);
+    return err;
+  }
+};
+
+export const ApiPost2 = async (endpoint: string, dat: any) => {
+  try {
+    const resp = await axios({
+      method: "post",
+      url: `${URL}${endpoint}`,
+      headers: {},
+      data: dat,
+    });
+    return resp;
+  } catch (err) {
+    console.log(err);
     return err;
   }
 };

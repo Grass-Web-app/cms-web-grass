@@ -1,9 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-
 import Cookies from "js-cookie";
-
 import { AppState } from "../../store";
-
 const projectName = "boilerplate";
 
 export const coockiesNames = {
@@ -13,11 +10,11 @@ export const coockiesNames = {
   stores: `${projectName}Stores`,
 };
 
-/*
 interface TToken {
   access: string;
   refresh: string;
 }
+/*
 interface currentUser {
   customer_id: string;
   email: string;
@@ -31,13 +28,12 @@ interface currentUser {
 */
 export interface CookieState {
   darkMode: boolean;
-  /*
   token: TToken | undefined;
+  /*
   currentUser: currentUser | undefined;
   innerSize: number[];
   */
 }
-
 
 function createDarkModeCookie(): boolean {
   Cookies.set(coockiesNames.darkMode, `${false}`);
@@ -60,9 +56,8 @@ function initCookies(type: string): any {
 
 const initialState: CookieState = {
   darkMode: initCookies(coockiesNames.darkMode),
-  
-  /*
   token: initCookies(coockiesNames.token),
+  /*
   currentUser: initCookies(coockiesNames.currentUser),
   innerSize: [window.innerWidth, window.innerHeight],
   */
@@ -77,6 +72,16 @@ export const CookiesSlice = createSlice({
       state.darkMode = action.payload;
       Cookies.set(coockiesNames.darkMode, `${action.payload}`);
     },
+    handleToken: (state, action: PayloadAction<TToken | undefined>): void => {
+      state.token = action.payload;
+      action.payload !== undefined &&
+        Cookies.set(coockiesNames.token, JSON.stringify(action.payload));
+    },
+    handleEraseCookies: (): void => {
+      Cookies.remove(coockiesNames.token);
+      Cookies.remove(coockiesNames.currentUser);
+      Cookies.remove(coockiesNames.stores);
+    },
     /*
     handleCurrentUser: (
       state,
@@ -86,34 +91,24 @@ export const CookiesSlice = createSlice({
       action.payload !== undefined &&
         Cookies.set(coockiesNames.currentUser, JSON.stringify(action.payload));
     },
-    handleEraseCookies: (): void => {
-      Cookies.remove(coockiesNames.token);
-      Cookies.remove(coockiesNames.currentUser);
-      Cookies.remove(coockiesNames.stores);
-    },
     handleInnerSize: (state, action: PayloadAction<number[]>): void => {
       state.innerSize = action.payload;
-    },
-    handleToken: (state, action: PayloadAction<TToken | undefined>): void => {
-      state.token = action.payload;
-      action.payload !== undefined &&
-        Cookies.set(coockiesNames.token, JSON.stringify(action.payload));
-    },
+    },    
     */
   },
 });
 
 export const DarkMode = (state: AppState) => state.cookies.darkMode;
-//export const Token = (state: AppState) => state.cookies.token;
+export const Token = (state: AppState) => state.cookies.token;
 //export const selectUser = (state: AppState) => state.cookies.currentUser;
 //export const InnerSize = (state: AppState) => state.cookies.innerSize;
 
 export const {
   handleMode,
   //handleCurrentUser,
-  //handleEraseCookies,
+  handleEraseCookies,
   //handleInnerSize,
-  //handleToken,
+  handleToken,
 } = CookiesSlice.actions;
 
 export default CookiesSlice.reducer;
