@@ -25,7 +25,6 @@ const Header = (props: { area: string }) => {
     setOptions(!options);
   };
   const selectOptions = (option: string) => {
-    console.log(option);
     close();
   };
   const close = () => {
