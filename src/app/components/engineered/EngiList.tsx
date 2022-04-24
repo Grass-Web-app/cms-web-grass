@@ -1,4 +1,6 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useAppSelector } from "../../Reduxhooks";
+import Catalog from "../catalog/Catalog";
 import {
   ButtonAddList,
   DivAddNew,
@@ -11,16 +13,61 @@ import {
   PWhere,
   TextAdd,
 } from "../catalog/styledCatalog";
-
+import useAxiosGet from "../Hooks/useAxiosGet";
+import { Token } from "../ReduxSlices/CookiesSlice";
+interface IEngineeredListData {
+  data: {
+    code: number;
+    data: IEngineredOnlyList[];
+  };
+  status: number;
+  statusText: string;
+}
+export interface IEngineredOnlyList {
+  description: string;
+  icon: string;
+  id: number;
+  subtitle: string;
+  title: string;
+}
 const EngiList = (props: {
   stateNew: boolean;
   addNew: (dat: boolean) => void;
+  setData: (dat: any) => void;
 }) => {
-  const { addNew, stateNew } = props;
+  const { addNew, stateNew, setData } = props;
+  const token = useAppSelector(Token);
+  const [EngineeredList, setEngineeredList] = useState<IEngineredOnlyList[]>(
+    []
+  );
+  const { Get } = useAxiosGet("grasses/", {
+    completeInterceptor: {
+      action: (data: IEngineeredListData) => {
+        setEngineeredList(data.data.data);
+      },
+    },
+    errorInterceptor: {
+      message: "No se obtuvieron los datos de get",
+    },
+  });
+  useEffect(() => {
+    if (token.access !== "" && token.refresh !== "") {
+      Get(token.access);
+    }
+  }, []);
+
+  const handleNewData = () => {
+    setData(null);
+    addNew(!stateNew);
+  };
+
   return (
     <DivContainerCatalog>
       <DivAddNew>
-        <ButtonAddList onClick={() => addNew(!stateNew)}>
+        <ButtonAddList
+          disabled={EngineeredList.length === 6}
+          onClick={handleNewData}
+        >
           <TextAdd>Agregar nueva</TextAdd>
           <DivIcon>
             <ImgIcon
@@ -29,16 +76,33 @@ const EngiList = (props: {
             />
           </DivIcon>
         </ButtonAddList>
-        <PWhere>Lista de Engineered</PWhere>
+        <PWhere>Lista de Catalogo</PWhere>
       </DivAddNew>
       <DivListOptions>
-        <DivUpperList>
+        <DivUpperList up>
           <PtitleUpper>#Numero</PtitleUpper>
           <PtitleUpper>Title</PtitleUpper>
+          <PtitleUpper>Picture</PtitleUpper>
           <PtitleUpper>Subtitle</PtitleUpper>
-          <PtitleUpper>Description</PtitleUpper>
-          <PtitleUpper></PtitleUpper>
+          <PtitleUpper>Options</PtitleUpper>
         </DivUpperList>
+        {EngineeredList.length !== 0 &&
+          EngineeredList.map((item: IEngineredOnlyList, index: number) => {
+            let bottom = false;
+            if (EngineeredList.length === index + 1) bottom = true;
+            return (
+              <DivUpperList bot={bottom.toString()} key={item.id}>
+                <Catalog
+                  endpointErase={"grasses/"}
+                  id={item.id}
+                  title={item.title}
+                  subtitle={item.subtitle}
+                  icon={item.icon}
+                  setcatalog={() => setData(item)}
+                />
+              </DivUpperList>
+            );
+          })}
       </DivListOptions>
     </DivContainerCatalog>
   );

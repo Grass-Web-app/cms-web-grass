@@ -1,5 +1,8 @@
+import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { prefix } from "../../../pages/_app";
+import { useAppDispatch, useAppSelector } from "../../Reduxhooks";
+import { handleToken, Token } from "../ReduxSlices/CookiesSlice";
 import {
   DivArrow,
   DivHeaderContainer,
@@ -17,6 +20,9 @@ import {
 
 const Header = (props: { area: string }) => {
   const { area } = props;
+  const { push } = useRouter();
+  const dispatch = useAppDispatch();
+
   const [arrow, setArrow] = useState(false);
   const [options, setOptions] = useState(false);
 
@@ -25,7 +31,16 @@ const Header = (props: { area: string }) => {
     setOptions(!options);
   };
   const selectOptions = (option: string) => {
-    close();
+    switch (option) {
+      case "closeSesion":
+        dispatch(handleToken({ access: "", refresh: "" }));
+        push("/login");
+        break;
+
+      default:
+        close();
+        break;
+    }
   };
   const close = () => {
     setArrow(false);
@@ -57,7 +72,7 @@ const Header = (props: { area: string }) => {
           <Poptions onClick={() => selectOptions("cuenta")}>
             Ver mi cuenta
           </Poptions>
-          <Poptions onClick={() => selectOptions("sesion")}>
+          <Poptions onClick={() => selectOptions("closeSesion")}>
             Cerrar sesion
           </Poptions>
         </DivOptions>

@@ -1,7 +1,7 @@
-import axios from "axios";
 import { useState } from "react";
+import axios from "axios";
 const URL: string = `${process.env.NEXT_PUBLIC_BASE_URL}`;
-const AxiosPostHook = (
+const useAxiosDelete = (
   endpoint?: string,
   options?: {
     errorInterceptor?: {
@@ -15,13 +15,12 @@ const AxiosPostHook = (
   }
 ) => {
   const [isLoading, setisLoading] = useState(false);
-  const GetPost = async (dataBody: any) => {
+  const Delete = async (token: string, id: number) => {
     try {
       const resp = await axios({
-        method: "post",
-        url: `${URL}${endpoint}`,
-        headers: {},
-        data: dataBody,
+        method: "delete",
+        url: `${URL}${endpoint}${id}`,
+        headers: { Authorization: `Bearer ${token}` },
       });
       if (options?.completeInterceptor?.action) {
         setisLoading(true);
@@ -41,7 +40,7 @@ const AxiosPostHook = (
     }
   };
 
-  return { GetPost, isLoading };
+  return { Delete, isLoading };
 };
 
-export default AxiosPostHook;
+export default useAxiosDelete;

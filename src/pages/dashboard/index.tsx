@@ -4,7 +4,7 @@ import HeaderFooterWraper from "../../app/components/layout/InitWraper";
 const index = () => {
   return (
     <HeaderFooterWraper>
-      <div>soy dashboard</div>
+      <div></div>
     </HeaderFooterWraper>
   );
 };

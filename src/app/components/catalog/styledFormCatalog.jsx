@@ -1,5 +1,11 @@
 import styled from "styled-components";
 
+const borderRed = `
+  border-style: solid;
+  border-width: 1px;
+  border-color: red;
+`;
+
 export const DivContainerFormCatalog = styled.div`
   padding: 2%;
 `;
@@ -38,7 +44,7 @@ export const DivButtons = styled.div`
   width: 100%;
   display: flex;
   justify-content: space-between;
-  margin-top: 20px;
+  margin-top: 40px;
 `;
 
 export const ButtonAceptarCancel = styled.button`
@@ -47,12 +53,25 @@ export const ButtonAceptarCancel = styled.button`
   border-radius: 10px;
   border: none;
   cursor: pointer;
+  opacity: ${(props) => props.disabled === "true" && "0.5"};
 `;
 
 export const DivInputContainer = styled.div`
   margin-top: 10px;
+  position: relative;
 `;
 
+export const PObligatory = styled.p`
+  padding: 0;
+  margin: 0;
+  margin-top: 5px;
+  font-size: 12px;
+  position: absolute;
+  color: red;
+  width: 100%;
+  text-align: right;
+  display: ${(props) => props.show === "false" && "none"};
+`;
 export const PText = styled.p``;
 
 export const InputNormal = styled.input`
@@ -64,6 +83,7 @@ export const InputNormal = styled.input`
   outline: none;
   border: none;
   padding-left: 15px;
+  ${(props) => props.show === "true" && borderRed}
 `;
 export const InputDescription = styled.textarea`
   height: 100%;
@@ -74,6 +94,7 @@ export const InputDescription = styled.textarea`
   outline: none;
   border: none;
   padding-left: 15px;
+  ${(props) => props.show === "true" && borderRed}
 `;
 
 export const InputImg = styled.input`
@@ -94,6 +115,7 @@ export const DivImgFormulary = styled.div`
   height: 150px;
   border-radius: 15px;
   position: relative;
+  ${(props) => props.show === "true" && borderRed}
 `;
 
 export const DivImgCloud = styled.div`
