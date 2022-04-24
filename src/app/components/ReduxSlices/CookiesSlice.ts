@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import Cookies from "js-cookie";
 import { AppState } from "../../store";
-const projectName = "boilerplate";
+const projectName = "cms-fusta";
 
 export const coockiesNames = {
   darkMode: `${projectName}Mode`,
@@ -40,6 +40,11 @@ function createDarkModeCookie(): boolean {
   return false;
 }
 
+function createTokenCookie(): TToken {
+  Cookies.set(coockiesNames.token, JSON.stringify({ access: "", refresh: "" }));
+  return { access: "", refresh: "" };
+}
+
 function initCookies(type: string): any {
   switch (type) {
     case coockiesNames.darkMode:
@@ -48,6 +53,10 @@ function initCookies(type: string): any {
           ? true
           : false
         : createDarkModeCookie();
+    case coockiesNames.token:
+      return Cookies.get(coockiesNames.token)
+        ? JSON.parse(Cookies.get(coockiesNames.token))
+        : createTokenCookie();
 
     default:
       break;
