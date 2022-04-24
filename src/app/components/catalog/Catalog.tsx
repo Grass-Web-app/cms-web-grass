@@ -23,14 +23,16 @@ const Catalog = (props: {
   icon: string;
   setcatalog: () => void;
   endpointErase: string;
+  fnErase: () => void;
 }) => {
-  const { id, title, subtitle, icon, setcatalog, endpointErase } = props;
+  const { id, title, subtitle, icon, setcatalog, endpointErase, fnErase } =
+    props;
   const token = useAppSelector(Token);
   const [showOprions, setShowOprions] = useState(false);
   const { Delete } = useAxiosDelete(endpointErase, {
     completeInterceptor: {
       action: () => {
-        console.log("se elimino el ano coso");
+        fnErase();
       },
     },
     errorInterceptor: {
@@ -50,7 +52,7 @@ const Catalog = (props: {
         <PtitleUpper>{title}</PtitleUpper>
       </DivTextContainer>
       <DivImgImglist>
-        <ImgShowInList alt="image" src={icon} />
+        {icon !== null && <ImgShowInList alt="image" src={icon} />}
       </DivImgImglist>
       <DivTextContainer>
         <PtitleUpper>{subtitle}</PtitleUpper>

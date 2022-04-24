@@ -92,6 +92,7 @@ const CarouselList = (props: {
                   subtitle={item.description}
                   icon={item.image}
                   setcatalog={() => setData(item)}
+                  fnErase={() => Get(token.access)}
                 />
               </DivUpperList>
             );

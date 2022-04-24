@@ -93,6 +93,7 @@ const CardsList = (props: {
                   subtitle={item.subtitle}
                   icon={item.image}
                   setcatalog={() => setData(item)}
+                  fnErase={() => Get(token.access)}
                 />
               </DivUpperList>
             );

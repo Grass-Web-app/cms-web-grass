@@ -1,47 +1,45 @@
 import React, { useEffect, useState } from "react";
 import { useAppSelector } from "../../Reduxhooks";
-import useAxiosGet from "../Hooks/useAxiosGet";
-import { Token } from "../ReduxSlices/CookiesSlice";
-import Catalog from "./Catalog";
+import Catalog from "../catalog/Catalog";
 import {
+  ButtonAddList,
   DivAddNew,
   DivContainerCatalog,
   DivIcon,
-  ButtonAddList,
-  ImgIcon,
-  TextAdd,
   DivListOptions,
   DivUpperList,
+  ImgIcon,
   PtitleUpper,
   PWhere,
-} from "./styledCatalog";
-interface ICatalogListData {
+  TextAdd,
+} from "../catalog/styledCatalog";
+import useAxiosGet from "../Hooks/useAxiosGet";
+import { Token } from "../ReduxSlices/CookiesSlice";
+interface IParallListData {
   data: {
     code: number;
-    data: IcatalogOnlyList[];
+    data: IparallaxOnlyList[];
   };
   status: number;
   statusText: string;
 }
-export interface IcatalogOnlyList {
+export interface IparallaxOnlyList {
   description: string;
-  icon: string;
   id: number;
-  subtitle: string;
   title: string;
 }
-const CatalogList = (props: {
+const ParallaxList = (props: {
   stateNew: boolean;
   addNew: (dat: boolean) => void;
-  setData: (dat: IcatalogOnlyList) => void;
+  setData: (dat: any) => void;
 }) => {
   const { addNew, stateNew, setData } = props;
   const token = useAppSelector(Token);
-  const [CatalogList, setCatalogList] = useState<IcatalogOnlyList[]>([]);
-  const { Get } = useAxiosGet("grasses/", {
+  const [ParallaxList, setParallaxList] = useState<IparallaxOnlyList[]>([]);
+  const { Get } = useAxiosGet("parallax/", {
     completeInterceptor: {
-      action: (data: ICatalogListData) => {
-        setCatalogList(data.data.data);
+      action: (data: IParallListData) => {
+        setParallaxList(data.data.data);
       },
     },
     errorInterceptor: {
@@ -58,11 +56,13 @@ const CatalogList = (props: {
     setData(null);
     addNew(!stateNew);
   };
-
   return (
     <DivContainerCatalog>
       <DivAddNew>
-        <ButtonAddList onClick={handleNewData}>
+        <ButtonAddList
+          disabled={ParallaxList.length === 1}
+          onClick={handleNewData}
+        >
           <TextAdd>Agregar nueva</TextAdd>
           <DivIcon>
             <ImgIcon
@@ -81,19 +81,18 @@ const CatalogList = (props: {
           <PtitleUpper>Subtitle</PtitleUpper>
           <PtitleUpper>Options</PtitleUpper>
         </DivUpperList>
-        {CatalogList.length !== 0 &&
-          false &&
-          CatalogList.map((item: IcatalogOnlyList, index: number) => {
+        {ParallaxList.length !== 0 &&
+          ParallaxList.map((item: IparallaxOnlyList, index: number) => {
             let bottom = false;
-            if (CatalogList.length === index + 1) bottom = true;
+            if (ParallaxList.length === index + 1) bottom = true;
             return (
               <DivUpperList bot={bottom.toString()} key={item.id}>
                 <Catalog
-                  endpointErase={"grasses/"}
+                  endpointErase={"parallax/"}
                   id={item.id}
                   title={item.title}
-                  subtitle={item.subtitle}
-                  icon={item.icon}
+                  subtitle={item.description}
+                  icon={null}
                   setcatalog={() => setData(item)}
                   fnErase={() => Get(token.access)}
                 />
@@ -105,4 +104,4 @@ const CatalogList = (props: {
   );
 };
 
-export default CatalogList;
+export default ParallaxList;
