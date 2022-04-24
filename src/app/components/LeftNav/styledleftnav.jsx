@@ -22,7 +22,7 @@ export const ImgLogo = styled.img`
 
 export const DivOptions = styled.div`
   width: 100%;
-  height: 40%;
+  height: 50%;
   display: flex;
   flex-direction: column;
   align-items: center;

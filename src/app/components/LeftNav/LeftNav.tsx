@@ -35,8 +35,13 @@ const OptionsNAvigation = [
   },
   {
     title: "Engineered",
-    icon: require("../../../../assets/icons/marcapáginas.svg"),
+    icon: require("../../../../assets/icons/archivo.svg"),
     link: "/engineered",
+  },
+  {
+    title: "Parallax",
+    icon: require("../../../../assets/icons/marcaginas.svg"),
+    link: "/parallax",
   },
   {
     title: "Carousel",

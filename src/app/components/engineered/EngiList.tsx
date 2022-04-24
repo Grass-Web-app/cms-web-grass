@@ -99,6 +99,7 @@ const EngiList = (props: {
                   subtitle={item.subtitle}
                   icon={item.icon}
                   setcatalog={() => setData(item)}
+                  fnErase={() => Get(token.access)}
                 />
               </DivUpperList>
             );

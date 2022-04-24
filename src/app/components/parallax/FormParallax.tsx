@@ -1,9 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { useAppSelector } from "../../Reduxhooks";
-import useAxiosPatch from "../Hooks/useAxiosPatch";
-import useAxiosPost from "../Hooks/useAxiosPost";
-import { Token } from "../ReduxSlices/CookiesSlice";
-import { IcatalogOnlyList } from "./CatalogList";
 import {
   ButtonAceptarCancel,
   ButtonBackArrow,
@@ -23,35 +19,28 @@ import {
   InputNormal,
   PObligatory,
   PText,
-} from "./styledFormCatalog";
-interface ICatalog {
-  title: string;
-  subtitle: string;
-  description: string;
-  icon: null | any;
-}
-const FormCatalog = (props: {
+} from "../catalog/styledFormCatalog";
+import useAxiosPatch from "../Hooks/useAxiosPatch";
+import useAxiosPost from "../Hooks/useAxiosPost";
+import { Token } from "../ReduxSlices/CookiesSlice";
+
+const FormParallax = (props: {
   stateNew: boolean;
   addNew: (dat: boolean) => void;
-  edithData: null | IcatalogOnlyList;
+  edithData: null | any;
 }) => {
   const { stateNew, addNew, edithData } = props;
   const token = useAppSelector(Token);
-  const [file, setFile] = useState<any>(null);
   const [DisabledButton, setDisabledButton] = useState(false);
-  const [BodyGrassData, setBodyGrassData] = useState<ICatalog>({
+  const [BodyGrassData, setBodyGrassData] = useState<any>({
     title: "",
-    subtitle: "",
     description: "",
-    icon: null,
   });
   const [showObligatorio, setShowObligatorio] = useState({
     title: false,
-    subtitle: false,
     description: false,
-    icon: false,
   });
-  const { Post } = useAxiosPost("grasses/", {
+  const { Post } = useAxiosPost("parallax/", {
     completeInterceptor: {
       action: () => {
         addNew(!stateNew);
@@ -64,7 +53,7 @@ const FormCatalog = (props: {
       },
     },
   });
-  const { Patch } = useAxiosPatch(`grasses/${edithData?.id}/`, {
+  const { Patch } = useAxiosPatch(`parallax/${edithData?.id}/`, {
     completeInterceptor: {
       action: () => {
         addNew(!stateNew);
@@ -79,27 +68,17 @@ const FormCatalog = (props: {
   });
   const handleFormulary = {
     Title: (dat: string) => setBodyGrassData({ ...BodyGrassData, title: dat }),
-    Subtitle: (dat: string) =>
-      setBodyGrassData({ ...BodyGrassData, subtitle: dat }),
     Description: (dat: string) =>
       setBodyGrassData({ ...BodyGrassData, description: dat }),
-    Icon: (dat: any) => setBodyGrassData({ ...BodyGrassData, icon: dat }),
   };
 
   const handleCreateGrasses = () => {
-    const { title, subtitle, description, icon } = BodyGrassData;
-    if (
-      title !== "" &&
-      subtitle !== "" &&
-      description !== "" &&
-      icon !== null
-    ) {
+    const { title, description } = BodyGrassData;
+    if (title !== "" && description !== "") {
       setDisabledButton(true);
       let formData = new FormData();
       formData.append("title", title);
-      formData.append("subtitle", subtitle);
       formData.append("description", description);
-      formData.append("icon", file);
 
       Post(formData, {
         Authorization: `Bearer ${token.access}`,
@@ -107,9 +86,7 @@ const FormCatalog = (props: {
     } else {
       setShowObligatorio({
         title: title === "",
-        subtitle: subtitle === "",
         description: description === "",
-        icon: icon === null,
       });
     }
   };
@@ -125,9 +102,7 @@ const FormCatalog = (props: {
       setDisabledButton(true);
       let formData = new FormData();
       formData.append("title", title);
-      formData.append("subtitle", subtitle);
       formData.append("description", description);
-      if (file !== null) formData.append("icon", file);
 
       Patch(formData, {
         Authorization: `Bearer ${token.access}`,
@@ -135,9 +110,7 @@ const FormCatalog = (props: {
     } else {
       setShowObligatorio({
         title: title === "",
-        subtitle: subtitle === "",
         description: description === "",
-        icon: icon === null,
       });
     }
   };
@@ -146,17 +119,10 @@ const FormCatalog = (props: {
     if (edithData !== null) {
       setBodyGrassData({
         title: edithData.title,
-        subtitle: edithData.subtitle,
         description: edithData.description,
-        icon: edithData.icon,
       });
     }
   }, [edithData]);
-  useEffect(() => {
-    if (file !== null) {
-      handleFormulary.Icon(URL.createObjectURL(file));
-    }
-  }, [file]);
 
   const handleEdithorCreate = () => {
     if (edithData !== null) handleEdithGrasses();
@@ -170,7 +136,7 @@ const FormCatalog = (props: {
             alt="arrow"
             src={require("../../../../assets/icons/leftArrow.svg")}
           />
-          Lista de Catalogo
+          Lista de Parallax
         </ButtonBackArrow>
         <HR />
         <DivInputContainer>
@@ -186,44 +152,7 @@ const FormCatalog = (props: {
             *Llenar campo obligatorio
           </PObligatory>
         </DivInputContainer>
-        <DivInputContainer>
-          <PText>Subtitulo</PText>
-          <InputNormal
-            value={BodyGrassData.subtitle}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-              handleFormulary.Subtitle(e.target.value)
-            }
-            show={showObligatorio.subtitle.toString()}
-          />
-          <PObligatory show={showObligatorio.subtitle.toString()}>
-            *Llenar campo obligatorio
-          </PObligatory>
-        </DivInputContainer>
 
-        <DivInputContainer>
-          <PText>Imagen</PText>
-          <DivImgFormulary show={showObligatorio.icon.toString()}>
-            {BodyGrassData.icon !== null ? (
-              <HavePicture>
-                <ImgFile alt="file" src={BodyGrassData.icon} />
-              </HavePicture>
-            ) : (
-              <DivImgCloud>
-                <ImgCloud
-                  alt="cloud"
-                  src={require("../../../../assets/icons/nube.svg")}
-                />
-              </DivImgCloud>
-            )}
-            <InputImg
-              type="file"
-              onChange={(e: any) => setFile(e.target.files[0])}
-            />
-          </DivImgFormulary>
-          <PObligatory show={showObligatorio.icon.toString()}>
-            *Llenar campo obligatorio
-          </PObligatory>
-        </DivInputContainer>
         <DivInputContainer>
           <PText>Description</PText>
           <InputDescription
@@ -256,4 +185,4 @@ const FormCatalog = (props: {
   );
 };
 
-export default FormCatalog;
+export default FormParallax;
