@@ -1,4 +1,8 @@
 import styled from "styled-components";
+const fondo = `
+  background: green;
+  color: white;
+`;
 
 export const DivContainerOptions = styled.div`
   display: flex;
@@ -17,4 +21,5 @@ export const DivListContainer = styled.div`
 export const ButtonOptions = styled.button`
   width: fit-content;
   margin-left: 10px;
+  ${(props) => props.selected === "true" && fondo}
 `;

@@ -94,19 +94,34 @@ const index = () => {
     <HeaderFooterWraper>
       <DivButtonsContainer>
         <DivContainerOptions>
-          <ButtonOptions onClick={() => handleMenuOption.Catalogue()}>
+          <ButtonOptions
+            selected={MenuOption.Catalogue.toString()}
+            onClick={() => handleMenuOption.Catalogue()}
+          >
             Catalogue
           </ButtonOptions>
-          <ButtonOptions onClick={() => handleMenuOption.Header()}>
+          <ButtonOptions
+            selected={MenuOption.header.toString()}
+            onClick={() => handleMenuOption.Header()}
+          >
             Headers
           </ButtonOptions>
-          <ButtonOptions onClick={() => handleMenuOption.bigDescription()}>
+          <ButtonOptions
+            selected={MenuOption.bigDescription.toString()}
+            onClick={() => handleMenuOption.bigDescription()}
+          >
             Descriptions
           </ButtonOptions>
-          <ButtonOptions onClick={() => handleMenuOption.bigCarousel()}>
+          <ButtonOptions
+            selected={MenuOption.BigCarousel.toString()}
+            onClick={() => handleMenuOption.bigCarousel()}
+          >
             CardCarousel
           </ButtonOptions>
-          <ButtonOptions onClick={() => handleMenuOption.CarouselDescription()}>
+          <ButtonOptions
+            selected={MenuOption.CarouselDescription.toString()}
+            onClick={() => handleMenuOption.CarouselDescription()}
+          >
             PicturesDescriptions
           </ButtonOptions>
         </DivContainerOptions>
