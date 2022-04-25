@@ -9,7 +9,8 @@ const upperBottom = `
   border-bottom-right-radius: 15px;
   border-bottom-left-radius: 15px;
   `;
-export const DivContainerCatalog = styled.div``;
+export const DivContainerCatalog = styled.div`
+`;
 
 export const DivAddNew = styled.div`
   padding: 2%;

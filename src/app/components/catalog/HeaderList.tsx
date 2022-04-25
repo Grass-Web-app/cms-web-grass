@@ -4,43 +4,44 @@ import useAxiosGet from "../Hooks/useAxiosGet";
 import { Token } from "../ReduxSlices/CookiesSlice";
 import Catalog from "./Catalog";
 import {
+  ButtonAddList,
   DivAddNew,
   DivContainerCatalog,
   DivIcon,
-  ButtonAddList,
-  ImgIcon,
-  TextAdd,
   DivListOptions,
   DivUpperList,
+  ImgIcon,
   PtitleUpper,
   PWhere,
+  TextAdd,
 } from "./styledCatalog";
-interface ICatalogListData {
+interface IData {
   data: {
     code: number;
-    data: IcatalogOnlyList[];
+    data: IHeaderOnlyList[];
   };
   status: number;
   statusText: string;
 }
-export interface IcatalogOnlyList {
+export interface IHeaderOnlyList {
+  catalogue: number;
   id: number;
+  picture: string;
   title: string;
-  subtitle: string;
-  description: string;
 }
-const CatalogList = (props: {
+
+const HeaderList = (props: {
   stateNew: boolean;
   addNew: (dat: boolean) => void;
-  setData: (dat: IcatalogOnlyList) => void;
+  setData: (dat: any) => void;
 }) => {
   const { addNew, stateNew, setData } = props;
   const token = useAppSelector(Token);
-  const [CatalogListState, setCatalogListState] = useState<IcatalogOnlyList[]>([]);
-  const { Get } = useAxiosGet("catalogues/", {
+  const [HeaderListState, setHeaderListState] = useState<IHeaderOnlyList[]>([]);
+  const { Get } = useAxiosGet("catalogues/headers/", {
     completeInterceptor: {
-      action: (data: ICatalogListData) => {
-        setCatalogListState(data.data.data);
+      action: (data: IData) => {
+        setHeaderListState(data.data.data);
       },
     },
     errorInterceptor: {
@@ -57,7 +58,6 @@ const CatalogList = (props: {
     setData(null);
     addNew(!stateNew);
   };
-
   return (
     <DivContainerCatalog>
       <DivAddNew>
@@ -70,28 +70,28 @@ const CatalogList = (props: {
             />
           </DivIcon>
         </ButtonAddList>
-        <PWhere>Lista de Catalogo</PWhere>
+        <PWhere>Lista de Headers</PWhere>
       </DivAddNew>
       <DivListOptions>
         <DivUpperList up>
           <PtitleUpper>#Numero</PtitleUpper>
           <PtitleUpper>Title</PtitleUpper>
-          <PtitleUpper></PtitleUpper>
-          <PtitleUpper>Subtitle</PtitleUpper>
+          <PtitleUpper>Picture</PtitleUpper>
+          <PtitleUpper>#Catalogo</PtitleUpper>
           <PtitleUpper>Options</PtitleUpper>
         </DivUpperList>
-        {CatalogListState.length !== 0 &&
-          CatalogListState.map((item: IcatalogOnlyList, index: number) => {
+        {HeaderListState.length !== 0 &&
+          HeaderListState.map((item: IHeaderOnlyList, index: number) => {
             let bottom = false;
-            if (CatalogListState.length === index + 1) bottom = true;
+            if (HeaderListState.length === index + 1) bottom = true;
             return (
               <DivUpperList bot={bottom.toString()} key={item.id}>
                 <Catalog
-                  endpointErase={"catalogues/"}
+                  endpointErase={"catalogues/headers/"}
                   id={item.id}
                   title={item.title}
-                  subtitle={item.subtitle}
-                  icon={null}
+                  subtitle={`#${item.catalogue}`}
+                  icon={item.picture}
                   setcatalog={() => setData(item)}
                   fnErase={() => Get(token.access)}
                 />
@@ -103,4 +103,4 @@ const CatalogList = (props: {
   );
 };
 
-export default CatalogList;
+export default HeaderList;

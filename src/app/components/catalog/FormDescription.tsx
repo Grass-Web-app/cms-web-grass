@@ -1,62 +1,75 @@
 import React, { useEffect, useState } from "react";
 import { useAppSelector } from "../../Reduxhooks";
+import useAxiosGet from "../Hooks/useAxiosGet";
 import useAxiosPatch from "../Hooks/useAxiosPatch";
 import useAxiosPost from "../Hooks/useAxiosPost";
 import { Token } from "../ReduxSlices/CookiesSlice";
-import { IcatalogOnlyList } from "./CatalogList";
+import { IDescriptionOnlyList } from "./DescriptionsList";
 import {
   ButtonAceptarCancel,
   ButtonBackArrow,
   DivButtons,
+  DivCatalogOptions,
   DivContainerFormCatalog,
   DivFormulary,
   DivInputContainer,
-  HR,
+  HR,  
   ImgIconArrow,
-  InputDescription,
+  InputDescription,  
   InputNormal,
   PObligatory,
+  PoptionCatalogue,
   PText,
 } from "./styledFormCatalog";
-interface ICatalog {
-  title: string;
-  subtitle: string;
-  description: string;
-}
 
-interface IResponseCreate {
-  code: number;
-  error: boolean;
-  message: string;
-  data: {
-    id: number;
-    title: string;
-    subtitle: string;
-    description: string;
-  };
-  pagination: null;
-}
-const FormCatalog = (props: {
+const FormDescription = (props: {
   stateNew: boolean;
   addNew: (dat: boolean) => void;
-  edithData: null | IcatalogOnlyList;
+  edithData: null | IDescriptionOnlyList;
 }) => {
   const { stateNew, addNew, edithData } = props;
   const token = useAppSelector(Token);
+  const [ShowCatalogueIds, setShowCatalogueIds] = useState(false);
+  const [CatalogList, setCatalogList] = useState(null);
   const [DisabledButton, setDisabledButton] = useState(false);
-  const [BodyGrassData, setBodyGrassData] = useState<ICatalog>({
+  const [BodyGrassData, setBodyGrassData] = useState({
     title: "",
-    subtitle: "",
-    description: "",
+    catalogueId: { number: null, name: "" },
+    description: null,
   });
 
   const [showObligatorio, setShowObligatorio] = useState({
     title: false,
-    subtitle: false,
+    catalogueId: false,
     description: false,
   });
-
-  const { Post: PostCatalogue } = useAxiosPost("catalogues/", {
+  const { Get } = useAxiosGet("catalogues/", {
+    completeInterceptor: {
+      action: (data: any) => {
+        setCatalogList(data.data.data);
+        if (edithData !== null) {
+          data.data.data.forEach((item) => {
+            if (edithData.catalogue === item.id) {
+              setBodyGrassData({
+                title: edithData.title,
+                description: edithData.description,
+                catalogueId: { name: item.title, number: item.id },
+              });
+            }
+          });
+        }
+      },
+    },
+    errorInterceptor: {
+      message: "No se obtuvieron los datos de get",
+    },
+  });
+  useEffect(() => {
+    if (token.access !== "" && token.refresh !== "") {
+      Get(token.access);
+    }
+  }, []);
+  const { Post: PostHeader } = useAxiosPost("catalogues/big-description/", {
     completeInterceptor: {
       action: () => {
         addNew(!stateNew);
@@ -69,9 +82,8 @@ const FormCatalog = (props: {
       },
     },
   });
-
-  const { Patch: PatchCatalogue } = useAxiosPatch(
-    `catalogues/${edithData?.id}/`,
+  const { Patch: PatchHeader } = useAxiosPatch(
+    `catalogues/big-description/${edithData?.id}/`,
     {
       completeInterceptor: {
         action: () => {
@@ -87,70 +99,64 @@ const FormCatalog = (props: {
     }
   );
 
-  const handleFormularyCatalogue = {
+  const handleFormularyHeader = {
     Title: (dat: string) => setBodyGrassData({ ...BodyGrassData, title: dat }),
-    Subtitle: (dat: string) =>
-      setBodyGrassData({ ...BodyGrassData, subtitle: dat }),
-    Description: (dat: string) =>
+    description: (dat: string) =>
       setBodyGrassData({ ...BodyGrassData, description: dat }),
-  };
-
-  const handleCreateCatalogue = () => {
-    const { title, subtitle, description } = BodyGrassData;
-    if (title !== "" && subtitle !== "" && description !== "") {
-      setDisabledButton(true);
-      let formData = new FormData();
-      formData.append("title", title);
-      formData.append("subtitle", subtitle);
-      formData.append("description", description);
-
-      PostCatalogue(formData, {
-        Authorization: `Bearer ${token.access}`,
-      });
-    } else {
-      setShowObligatorio({
-        title: title === "",
-        subtitle: subtitle === "",
-        description: description === "",
-      });
-    }
-  };
-
-  const handleEdithCatalogue = () => {
-    const { title, subtitle, description } = BodyGrassData;
-    if (title !== "" && subtitle !== "" && description !== "") {
-      setDisabledButton(true);
-      let formData = new FormData();
-      formData.append("title", title);
-      formData.append("subtitle", subtitle);
-      formData.append("description", description);
-
-      PatchCatalogue(formData, {
-        Authorization: `Bearer ${token.access}`,
-      });
-    } else {
-      setShowObligatorio({
-        title: title === "",
-        subtitle: subtitle === "",
-        description: description === "",
-      });
-    }
-  };
-
-  useEffect(() => {
-    if (edithData !== null) {
+    catalogue: (dat: number, name: string) => {
       setBodyGrassData({
-        title: edithData.title,
-        subtitle: edithData.subtitle,
-        description: edithData.description,
+        ...BodyGrassData,
+        catalogueId: { number: dat, name: name },
+      });
+      setShowCatalogueIds(!ShowCatalogueIds);
+    },
+  };
+  const handleCreateHeader = () => {
+    const { title, catalogueId, description } = BodyGrassData;
+    if (title !== "" && catalogueId.number !== null && description !== "") {
+      setDisabledButton(true);
+      let formData = new FormData();
+      formData.append("title", title);
+      formData.append("catalogue", `${catalogueId.number}`);
+      formData.append("description", description);
+
+      PostHeader(formData, {
+        Authorization: `Bearer ${token.access}`,
+      });
+    } else {
+      setShowObligatorio({
+        title: title === "",
+        catalogueId: catalogueId.number === null,
+        description: description === "",
       });
     }
-  }, [edithData]);
+  };
+  const handleEdithHeader = () => {
+    const { title, description, catalogueId } = BodyGrassData;
+    if (title !== "" && catalogueId.number !== null && description !== "") {
+      setDisabledButton(true);
+      let formData = new FormData();
+      formData.append("title", title);
+      formData.append("catalogue", `${catalogueId.number}`);
+      formData.append("description", description);
+
+      PatchHeader(formData, {
+        Authorization: `Bearer ${token.access}`,
+      });
+    } else {
+      setShowObligatorio({
+        title: title === "",
+        catalogueId: catalogueId.number === null,
+        description: description === "",
+      });
+    }
+  };
 
   const handleEdithorCreate = () => {
-    if (edithData !== null) handleEdithCatalogue();
-    else handleCreateCatalogue();
+    if (edithData !== null) handleEdithHeader();
+    else handleCreateHeader();
   };
+
   return (
     <DivContainerFormCatalog>
       <DivFormulary>
@@ -162,15 +168,44 @@ const FormCatalog = (props: {
             alt="arrow"
             src={require("../../../../assets/icons/leftArrow.svg")}
           />
-          Lista de Catalogo
+          Lista de Descripciones
         </ButtonBackArrow>
         <HR />
+        <DivInputContainer>
+          <PText>Catalogo perteneciente</PText>
+          <div onClick={() => setShowCatalogueIds(!ShowCatalogueIds)}>
+            <InputNormal
+              style={{ cursor: "pointer" }}
+              value={BodyGrassData.catalogueId.name}
+              disabled={true}
+              show={showObligatorio.catalogueId.toString()}
+            />
+          </div>
+          <PObligatory show={showObligatorio.catalogueId.toString()}>
+            *Llenar campo obligatorio
+          </PObligatory>
+          <DivCatalogOptions show={ShowCatalogueIds.toString()}>
+            {CatalogList !== null &&
+              CatalogList.map((item: any, index: number) => {
+                return (
+                  <PoptionCatalogue
+                    onClick={() =>
+                      handleFormularyHeader.catalogue(item.id, item.title)
+                    }
+                    key={index}
+                  >
+                    {item.title}
+                  </PoptionCatalogue>
+                );
+              })}
+          </DivCatalogOptions>
+        </DivInputContainer>
         <DivInputContainer>
           <PText>Title</PText>
           <InputNormal
             value={BodyGrassData.title}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-              handleFormularyCatalogue.Title(e.target.value)
+              handleFormularyHeader.Title(e.target.value)
             }
             show={showObligatorio.title.toString()}
           />
@@ -179,25 +214,11 @@ const FormCatalog = (props: {
           </PObligatory>
         </DivInputContainer>
         <DivInputContainer>
-          <PText>Subtitulo</PText>
-          <InputNormal
-            value={BodyGrassData.subtitle}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-              handleFormularyCatalogue.Subtitle(e.target.value)
-            }
-            show={showObligatorio.subtitle.toString()}
-          />
-          <PObligatory show={showObligatorio.subtitle.toString()}>
-            *Llenar campo obligatorio
-          </PObligatory>
-        </DivInputContainer>
-
-        <DivInputContainer>
           <PText>Description</PText>
           <InputDescription
             value={BodyGrassData.description}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-              handleFormularyCatalogue.Description(e.target.value)
+              handleFormularyHeader.description(e.target.value)
             }
             show={showObligatorio.description.toString()}
           />
@@ -205,7 +226,6 @@ const FormCatalog = (props: {
             *Llenar campo obligatorio
           </PObligatory>
         </DivInputContainer>
-
         <DivButtons>
           <ButtonAceptarCancel
             disabled={DisabledButton}
@@ -225,4 +245,4 @@ const FormCatalog = (props: {
   );
 };
 
-export default FormCatalog;
+export default FormDescription;

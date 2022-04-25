@@ -4,43 +4,45 @@ import useAxiosGet from "../Hooks/useAxiosGet";
 import { Token } from "../ReduxSlices/CookiesSlice";
 import Catalog from "./Catalog";
 import {
+  ButtonAddList,
   DivAddNew,
   DivContainerCatalog,
   DivIcon,
-  ButtonAddList,
-  ImgIcon,
-  TextAdd,
   DivListOptions,
   DivUpperList,
+  ImgIcon,
   PtitleUpper,
   PWhere,
+  TextAdd,
 } from "./styledCatalog";
-interface ICatalogListData {
+interface IData {
   data: {
     code: number;
-    data: IcatalogOnlyList[];
+    data: IDescriptionOnlyList[];
   };
   status: number;
   statusText: string;
 }
-export interface IcatalogOnlyList {
+export interface IDescriptionOnlyList {
+  catalogue: number;
+  description: string;
   id: number;
   title: string;
-  subtitle: string;
-  description: string;
 }
-const CatalogList = (props: {
+const DescriptionsList = (props: {
   stateNew: boolean;
   addNew: (dat: boolean) => void;
-  setData: (dat: IcatalogOnlyList) => void;
+  setData: (dat: IDescriptionOnlyList) => void;
 }) => {
   const { addNew, stateNew, setData } = props;
   const token = useAppSelector(Token);
-  const [CatalogListState, setCatalogListState] = useState<IcatalogOnlyList[]>([]);
-  const { Get } = useAxiosGet("catalogues/", {
+  const [DescriptionListState, setDescriptionListState] = useState<
+    IDescriptionOnlyList[]
+  >([]);
+  const { Get } = useAxiosGet("catalogues/big-description/", {
     completeInterceptor: {
-      action: (data: ICatalogListData) => {
-        setCatalogListState(data.data.data);
+      action: (data: IData) => {
+        setDescriptionListState(data.data.data);
       },
     },
     errorInterceptor: {
@@ -57,7 +59,6 @@ const CatalogList = (props: {
     setData(null);
     addNew(!stateNew);
   };
-
   return (
     <DivContainerCatalog>
       <DivAddNew>
@@ -70,27 +71,27 @@ const CatalogList = (props: {
             />
           </DivIcon>
         </ButtonAddList>
-        <PWhere>Lista de Catalogo</PWhere>
+        <PWhere>Lista de Descripciones</PWhere>
       </DivAddNew>
       <DivListOptions>
         <DivUpperList up>
           <PtitleUpper>#Numero</PtitleUpper>
           <PtitleUpper>Title</PtitleUpper>
           <PtitleUpper></PtitleUpper>
-          <PtitleUpper>Subtitle</PtitleUpper>
+          <PtitleUpper>#Catalogo</PtitleUpper>
           <PtitleUpper>Options</PtitleUpper>
         </DivUpperList>
-        {CatalogListState.length !== 0 &&
-          CatalogListState.map((item: IcatalogOnlyList, index: number) => {
+        {DescriptionListState.length !== 0 &&
+          DescriptionListState.map((item: IDescriptionOnlyList, index: number) => {
             let bottom = false;
-            if (CatalogListState.length === index + 1) bottom = true;
+            if (DescriptionListState.length === index + 1) bottom = true;
             return (
               <DivUpperList bot={bottom.toString()} key={item.id}>
                 <Catalog
-                  endpointErase={"catalogues/"}
+                  endpointErase={"catalogues/big-description/"}
                   id={item.id}
                   title={item.title}
-                  subtitle={item.subtitle}
+                  subtitle={`#${item.catalogue}`}
                   icon={null}
                   setcatalog={() => setData(item)}
                   fnErase={() => Get(token.access)}
@@ -103,4 +104,4 @@ const CatalogList = (props: {
   );
 };
 
-export default CatalogList;
+export default DescriptionsList;
