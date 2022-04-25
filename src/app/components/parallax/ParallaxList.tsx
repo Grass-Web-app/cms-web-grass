@@ -60,7 +60,7 @@ const ParallaxList = (props: {
     <DivContainerCatalog>
       <DivAddNew>
         <ButtonAddList
-          disabled={ParallaxList.length === 1}
+          disabled={ParallaxList.length > 0}
           onClick={handleNewData}
         >
           <TextAdd>Agregar nueva</TextAdd>
@@ -71,14 +71,14 @@ const ParallaxList = (props: {
             />
           </DivIcon>
         </ButtonAddList>
-        <PWhere>Lista de Catalogo</PWhere>
+        <PWhere>Lista de Parallax</PWhere>
       </DivAddNew>
       <DivListOptions>
         <DivUpperList up>
           <PtitleUpper>#Numero</PtitleUpper>
           <PtitleUpper>Title</PtitleUpper>
-          <PtitleUpper>Picture</PtitleUpper>
-          <PtitleUpper>Subtitle</PtitleUpper>
+          <PtitleUpper></PtitleUpper>
+          <PtitleUpper>Description</PtitleUpper>
           <PtitleUpper>Options</PtitleUpper>
         </DivUpperList>
         {ParallaxList.length !== 0 &&

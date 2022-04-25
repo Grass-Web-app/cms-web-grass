@@ -12,9 +12,11 @@ export const DivContainerFormCatalog = styled.div`
 
 export const DivFormulary = styled.div`
   border-radius: 15px;
-  overflow: hidden;
+
   background: white;
   padding: 1%;
+  height: 100%;
+  overflow: scroll;
 `;
 
 export const ButtonBackArrow = styled.button`
@@ -71,6 +73,7 @@ export const PObligatory = styled.p`
   width: 100%;
   text-align: right;
   display: ${(props) => props.show === "false" && "none"};
+  z-index: 5;
 `;
 export const PText = styled.p``;
 
@@ -148,4 +151,58 @@ export const ImgFile = styled.img`
   width: 100%;
   height: 100%;
   object-fit: cover;
+`;
+
+export const DivCatalogOptions = styled.div`
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 10px;
+  background: white;
+  position: absolute;
+  top: 110%;
+  margin: auto;
+  width: 100%;
+  z-index: 20;
+  display: ${(props) => props.show === "false" && "none"};
+  overflow: hidden;
+`;
+
+export const PoptionCatalogue = styled.p`
+  padding: 0;
+  margin: 0;
+  padding-left: 10px;
+  &:hover {
+    background: grey;
+    cursor: pointer;
+    color: white;
+  }
+`;
+
+export const DivBenefitOpcion = styled.div`
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 10px;
+  height: 2rem;
+  margin-bottom: 10px;
+  background: #f1f1f1;
+  display: flex;
+  align-items: center;
+  padding-left: 15px;
+  padding-right: 15px;
+  justify-content: space-between;
+`;
+export const Pbenefit = styled.p`
+  margin: 0;
+  padding: 0;
+`;
+
+export const DivImgBenefitOption = styled.div`
+  cursor: pointer;
+  height: 70%;
+  margin-left: 10px;
+`;
+
+export const ImgBenefit = styled.img`
+  height: 100%;
+  width: auto;
 `;

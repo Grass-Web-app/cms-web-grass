@@ -4,43 +4,47 @@ import useAxiosGet from "../Hooks/useAxiosGet";
 import { Token } from "../ReduxSlices/CookiesSlice";
 import Catalog from "./Catalog";
 import {
+  ButtonAddList,
   DivAddNew,
   DivContainerCatalog,
   DivIcon,
-  ButtonAddList,
-  ImgIcon,
-  TextAdd,
   DivListOptions,
   DivUpperList,
+  ImgIcon,
   PtitleUpper,
   PWhere,
+  TextAdd,
 } from "./styledCatalog";
-interface ICatalogListData {
+interface IData {
   data: {
     code: number;
-    data: IcatalogOnlyList[];
+    data: ICardCarouselOnlyList[];
   };
   status: number;
   statusText: string;
 }
-export interface IcatalogOnlyList {
-  id: number;
-  title: string;
-  subtitle: string;
+export interface ICardCarouselOnlyList {
+  benefits: string;
+  catalogue: number;
   description: string;
+  id: number;
+  subtitle: string;
+  title: string;
 }
-const CatalogList = (props: {
+const CardCarouselList = (props: {
   stateNew: boolean;
   addNew: (dat: boolean) => void;
-  setData: (dat: IcatalogOnlyList) => void;
+  setData: (dat: ICardCarouselOnlyList) => void;
 }) => {
   const { addNew, stateNew, setData } = props;
   const token = useAppSelector(Token);
-  const [CatalogListState, setCatalogListState] = useState<IcatalogOnlyList[]>([]);
-  const { Get } = useAxiosGet("catalogues/", {
+  const [CardCarouselState, setCardCarouselState] = useState<
+    ICardCarouselOnlyList[]
+  >([]);
+  const { Get } = useAxiosGet("catalogues/big-card-carousel/", {
     completeInterceptor: {
-      action: (data: ICatalogListData) => {
-        setCatalogListState(data.data.data);
+      action: (data: IData) => {
+        setCardCarouselState(data.data.data);
       },
     },
     errorInterceptor: {
@@ -57,7 +61,6 @@ const CatalogList = (props: {
     setData(null);
     addNew(!stateNew);
   };
-
   return (
     <DivContainerCatalog>
       <DivAddNew>
@@ -70,37 +73,39 @@ const CatalogList = (props: {
             />
           </DivIcon>
         </ButtonAddList>
-        <PWhere>Lista de Catalogo</PWhere>
+        <PWhere>Lista de Cards Carousel</PWhere>
       </DivAddNew>
       <DivListOptions>
         <DivUpperList up>
           <PtitleUpper>#Numero</PtitleUpper>
           <PtitleUpper>Title</PtitleUpper>
           <PtitleUpper></PtitleUpper>
-          <PtitleUpper>Subtitle</PtitleUpper>
+          <PtitleUpper>#Catalogo</PtitleUpper>
           <PtitleUpper>Options</PtitleUpper>
         </DivUpperList>
-        {CatalogListState.length !== 0 &&
-          CatalogListState.map((item: IcatalogOnlyList, index: number) => {
-            let bottom = false;
-            if (CatalogListState.length === index + 1) bottom = true;
-            return (
-              <DivUpperList bot={bottom.toString()} key={item.id}>
-                <Catalog
-                  endpointErase={"catalogues/"}
-                  id={item.id}
-                  title={item.title}
-                  subtitle={item.subtitle}
-                  icon={null}
-                  setcatalog={() => setData(item)}
-                  fnErase={() => Get(token.access)}
-                />
-              </DivUpperList>
-            );
-          })}
+        {CardCarouselState.length !== 0 &&
+          CardCarouselState.map(
+            (item: ICardCarouselOnlyList, index: number) => {
+              let bottom = false;
+              if (CardCarouselState.length === index + 1) bottom = true;
+              return (
+                <DivUpperList bot={bottom.toString()} key={item.id}>
+                  <Catalog
+                    endpointErase={"catalogues/big-card-carousel/"}
+                    id={item.id}
+                    title={item.title}
+                    subtitle={`#${item.catalogue}`}
+                    icon={null}
+                    setcatalog={() => setData(item)}
+                    fnErase={() => Get(token.access)}
+                  />
+                </DivUpperList>
+              );
+            }
+          )}
       </DivListOptions>
     </DivContainerCatalog>
   );
 };
 
-export default CatalogList;
+export default CardCarouselList;
