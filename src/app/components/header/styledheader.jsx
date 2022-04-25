@@ -7,7 +7,7 @@ export const DivHeaderContainer = styled.div`
   padding-left: 1%;
   padding-right: 1%;
   align-items: center;
-  background: #C7E6FA;
+  background: #c7e6fa;
   box-shadow: 0px 2px 5px 2px rgba(0, 0, 0, 0.2);
 `;
 
@@ -68,6 +68,7 @@ export const DivOptions = styled.div`
   height: fit-content;
   top: 100%;
   overflow: hidden;
+  z-index: 20;
 `;
 
 export const Poptions = styled.p`
@@ -77,6 +78,7 @@ export const Poptions = styled.p`
   height: 30px;
   display: flex;
   align-items: center;
+  cursor: pointer;
   &:hover {
     background-color: #c0b7ef;
   }

@@ -9,6 +9,7 @@ export const DivContainerOptions = styled.div`
   padding-top: 5px;
   position: sticky;
   top: 0;
+  z-index:10 ;
 `;
 export const DivButtonsContainer = styled.div`
   height: 100%;
