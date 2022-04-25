@@ -183,6 +183,7 @@ const FormPicsDescriptions = (props: {
       formData.append("subtitle", subtitle);
       formData.append("description", description);
       formData.append("catalogue", `${catalogueId.number}`);
+      if (file !== null) formData.append("picture", file);
 
       PatchPicsDesc(formData, {
         Authorization: `Bearer ${token.access}`,
