@@ -29,11 +29,6 @@ interface optionsModel {
 }
 const OptionsNAvigation = [
   {
-    title: "Dashboard",
-    icon: require("../../../../assets/icons/casa.svg"),
-    link: "/dashboard",
-  },
-  {
     title: "Catalogo",
     icon: require("../../../../assets/icons/carpeta.svg"),
     link: "/catalog",

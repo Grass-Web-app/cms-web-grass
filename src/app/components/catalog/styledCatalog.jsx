@@ -138,7 +138,7 @@ export const DivOptions = styled.div`
   background: white;
   position: absolute;
   border-radius: 16px;
-  left: -100px;
+  right: 0;
   top: 100%;
   margin: auto;
   overflow: hidden;
@@ -151,6 +151,10 @@ export const DivOptions = styled.div`
   display: ${(props) => (props.show === "false" ? "none" : "flex")};
   flex-direction: column;
   justify-content: space-around;
+  @media (min-width: 1020px) {
+    left: -100px;
+    right: auto;
+  }
 `;
 
 export const POption = styled.p`
