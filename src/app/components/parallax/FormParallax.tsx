@@ -23,6 +23,12 @@ import {
 import useAxiosPatch from "../Hooks/useAxiosPatch";
 import useAxiosPost from "../Hooks/useAxiosPost";
 import { Token } from "../ReduxSlices/CookiesSlice";
+import {
+  ErrorCreateMessageToast,
+  ErrorEdithMessageToast,
+  SuccessCreateMessageToast,
+  SuccessEdithMessageToast,
+} from "../ToastFunctions/toast-functions";
 
 const FormParallax = (props: {
   stateNew: boolean;
@@ -43,12 +49,14 @@ const FormParallax = (props: {
   const { Post } = useAxiosPost("parallax/", {
     completeInterceptor: {
       action: () => {
+        SuccessCreateMessageToast(BodyGrassData.title);
         addNew(!stateNew);
       },
     },
     errorInterceptor: {
       message: "No se obtuvieron los datos de la creacion",
       action: () => {
+        ErrorCreateMessageToast(BodyGrassData.title);
         setDisabledButton(false);
       },
     },
@@ -56,12 +64,14 @@ const FormParallax = (props: {
   const { Patch } = useAxiosPatch(`parallax/${edithData?.id}/`, {
     completeInterceptor: {
       action: () => {
+        SuccessEdithMessageToast(BodyGrassData.title);
         addNew(!stateNew);
       },
     },
     errorInterceptor: {
       message: "No se obtuvieron los datos de la creacion",
       action: () => {
+        ErrorEdithMessageToast(BodyGrassData.title);
         setDisabledButton(false);
       },
     },
@@ -177,7 +187,7 @@ const FormParallax = (props: {
             disabled={DisabledButton}
             onClick={handleEdithorCreate}
           >
-            Aceptar
+            {edithData !== null ? "Editar" : "Aceptar"}
           </ButtonAceptarCancel>
         </DivButtons>
       </DivFormulary>

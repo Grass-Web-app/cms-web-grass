@@ -5,6 +5,12 @@ import useAxiosPatch from "../Hooks/useAxiosPatch";
 import useAxiosPost from "../Hooks/useAxiosPost";
 import { Token } from "../ReduxSlices/CookiesSlice";
 import {
+  ErrorCreateMessageToast,
+  ErrorEdithMessageToast,
+  SuccessCreateMessageToast,
+  SuccessEdithMessageToast,
+} from "../ToastFunctions/toast-functions";
+import {
   ButtonAceptarCancel,
   ButtonBackArrow,
   DivButtons,
@@ -18,7 +24,7 @@ import {
   HR,
   ImgCloud,
   ImgFile,
-  ImgIconArrow,  
+  ImgIconArrow,
   InputImg,
   InputNormal,
   PObligatory,
@@ -90,12 +96,14 @@ const FormHeader = (props: {
   const { Post: PostHeader } = useAxiosPost("catalogues/headers/", {
     completeInterceptor: {
       action: () => {
+        SuccessCreateMessageToast(BodyGrassData.title);
         addNew(!stateNew);
       },
     },
     errorInterceptor: {
       message: "No se obtuvieron los datos de la creacion",
       action: () => {
+        ErrorCreateMessageToast(BodyGrassData.title);
         setDisabledButton(false);
       },
     },
@@ -106,12 +114,14 @@ const FormHeader = (props: {
     {
       completeInterceptor: {
         action: () => {
+          SuccessEdithMessageToast(BodyGrassData.title);
           addNew(!stateNew);
         },
       },
       errorInterceptor: {
         message: "No se obtuvieron los datos de la creacion",
         action: () => {
+          ErrorEdithMessageToast(BodyGrassData.title);
           setDisabledButton(false);
         },
       },
@@ -276,7 +286,7 @@ const FormHeader = (props: {
             disabled={DisabledButton}
             onClick={handleEdithorCreate}
           >
-            Aceptar
+            {edithData !== null ? "Editar" : "Aceptar"}
           </ButtonAceptarCancel>
         </DivButtons>
       </DivFormulary>

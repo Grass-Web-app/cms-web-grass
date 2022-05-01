@@ -143,6 +143,7 @@ const index = () => {
       setPositions(initPosotions);
     }
   };
+
   return (
     <HeaderFooterWraper>
       <DivButtonsContainer>
