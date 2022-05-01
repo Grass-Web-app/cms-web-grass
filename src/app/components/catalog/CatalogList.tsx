@@ -36,7 +36,9 @@ const CatalogList = (props: {
 }) => {
   const { addNew, stateNew, setData } = props;
   const token = useAppSelector(Token);
-  const [CatalogListState, setCatalogListState] = useState<IcatalogOnlyList[]>([]);
+  const [CatalogListState, setCatalogListState] = useState<IcatalogOnlyList[]>(
+    []
+  );
   const { Get } = useAxiosGet("catalogues/", {
     completeInterceptor: {
       action: (data: ICatalogListData) => {
@@ -73,10 +75,9 @@ const CatalogList = (props: {
         <PWhere>Lista de Catalogo</PWhere>
       </DivAddNew>
       <DivListOptions>
-        <DivUpperList up>
+        <DivUpperList icon={"false"} up>
           <PtitleUpper>#Numero</PtitleUpper>
           <PtitleUpper>Title</PtitleUpper>
-          <PtitleUpper></PtitleUpper>
           <PtitleUpper>Subtitle</PtitleUpper>
           <PtitleUpper>Options</PtitleUpper>
         </DivUpperList>
@@ -85,7 +86,7 @@ const CatalogList = (props: {
             let bottom = false;
             if (CatalogListState.length === index + 1) bottom = true;
             return (
-              <DivUpperList bot={bottom.toString()} key={item.id}>
+              <DivUpperList icon={"false"} bot={bottom.toString()} key={item.id}>
                 <Catalog
                   endpointErase={"catalogues/"}
                   id={item.id}

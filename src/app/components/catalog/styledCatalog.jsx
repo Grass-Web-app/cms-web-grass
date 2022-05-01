@@ -10,6 +10,7 @@ const upperBottom = `
   border-bottom-left-radius: 15px;
   `;
 export const DivContainerCatalog = styled.div`
+  background: #f3f4f6;
 `;
 
 export const DivAddNew = styled.div`
@@ -20,22 +21,30 @@ export const DivAddNew = styled.div`
 `;
 
 export const PWhere = styled.p`
-  font-size: 1.5vw;
+  font-size: 1rem;
   margin: 0;
   display: flex;
   align-items: center;
+  @media (min-width: 1020px) {
+    font-size: 1.5rem;
+  }
 `;
 
 export const ButtonAddList = styled.button`
   background: white;
-  border-color: red;
   border-radius: 15px;
-  padding: 10px;
   display: flex;
+  align-items: center;
   width: fit-content;
   cursor: pointer;
   box-shadow: 2px 5px 5px grey;
   border: none;
+  border-style: solid;
+  border-width: 1px;
+  border-color: #d7dce6;
+  @media (min-width: 1020px) {
+    padding: 10px;
+  }
 `;
 
 export const TextAdd = styled.p`
@@ -62,15 +71,20 @@ export const DivListOptions = styled.div`
   border-radius: 15px;
 `;
 export const DivUpperList = styled.div`
+  width: 90vw;
   display: grid;
-  grid-template-columns: 20%20%20%20%20%;
-  background: white;
+  grid-template-columns: ${(props) =>
+    props.icon === "false" ? "20%20%40%20%" : "20%20%20%20%20%"};
+  background: #d7dce6;
   border-bottom-style: solid;
   border-width: 1px;
-  border-color: #dbe6fa;
+  border-color: grey;
   height: ${(props) => (props.up ? "50" : "100")}px;
   ${(props) => props.up && upperTops}
   ${(props) => props.bot === "true" && upperBottom}
+  @media (min-width: 1020px) {
+    width: auto;
+  }
 `;
 
 export const PtitleUpper = styled.p`
@@ -83,7 +97,7 @@ export const PtitleUpper = styled.p`
 `;
 
 export const DivImgImglist = styled.div`
-  display: flex;
+  display: ${(props) => (props.show === "false" ? "none" : "flex")};
   align-items: center;
   justify-content: center;
   height: 80%;

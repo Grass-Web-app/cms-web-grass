@@ -36,18 +36,18 @@ const index = () => {
   const token = useAppSelector(Token);
   const { push } = useRouter();
 
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [Form, setForm] = useState({ email: "", password: "" });
   const [verify, setVerify] = useState(false);
+  const [Dissabled, setDissabled] = useState(false);
   const { Post } = useAxiosPost("users/login/", {
     completeInterceptor: {
       action: (data: IDataLogin) => {
         dispatch(handleToken(data.data.data));
-        push("/dashboard");
+        push("/catalog");
       },
     },
     errorInterceptor: {
-      message: "No se obtuvieron los datos del login",
+      message: "Verificar correo y contraseña",
       action: () => {
         setVerify(true);
       },
@@ -56,16 +56,17 @@ const index = () => {
   const { Get } = useAxiosGet("users/my-profile/", {
     completeInterceptor: {
       action: () => {
-        push("/dashboard");
+        push("/catalog");
       },
     },
     errorInterceptor: {
-      message: "No se obtuvieron los datos de get",
+      message: "Token caducado iniciar sesion de nuevo",
     },
   });
 
   //luis.aranda@dacodes.com.mx
   const handleButtonSingin = () => {
+    const { email, password } = Form;
     if (email !== "" && password !== "") {
       const userDates = {
         email: email,
@@ -73,6 +74,7 @@ const index = () => {
       };
       Post(userDates);
     } else {
+      console.log("aqui toy");
     }
   };
   useEffect(() => {
@@ -80,6 +82,13 @@ const index = () => {
       Get(token.access);
     }
   }, []);
+
+  useEffect(() => {
+    const { email, password } = Form;
+    if (email !== "" && password !== "") {
+      setDissabled(false);
+    } else setDissabled(true);
+  }, [Form]);
 
   return (
     <DivAllpage>
@@ -90,13 +99,13 @@ const index = () => {
       </DivImgBg>
       <DivContainer>
         <DivLogin>
-          <Plogin>Inicia sesion en tu cuenta</Plogin>
+          <Plogin>Inicia sesion en tu cuenta Fustadesing</Plogin>
           <DivInputRelative>
             <InputComponent
               type="email"
               holder="Ingresa tu correo electronico"
-              value={email}
-              setValue={setEmail}
+              value={Form.email}
+              setValue={(dat: string) => setForm({ ...Form, email: dat })}
             />
             <Pverifica show={verify.toString()}>*Verifica tu correo</Pverifica>
           </DivInputRelative>
@@ -104,14 +113,21 @@ const index = () => {
             <InputComponent
               type="password"
               holder="Contraseña"
-              value={password}
-              setValue={setPassword}
+              value={Form.password}
+              setValue={(dat: string) => setForm({ ...Form, password: dat })}
             />
             <Pverifica show={verify.toString()}>
               *Verifica tu contraseña
             </Pverifica>
           </DivInputRelative>
-          <ButtonLogin onClick={handleButtonSingin}>Iniciar sesion</ButtonLogin>
+
+          <ButtonLogin
+            dissabled={Dissabled.toString()}
+            disabled={Dissabled}
+            onClick={handleButtonSingin}
+          >
+            Iniciar sesion
+          </ButtonLogin>
           <PRegister>Registrar Usuario</PRegister>
         </DivLogin>
       </DivContainer>

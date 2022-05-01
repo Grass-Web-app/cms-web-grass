@@ -1,7 +1,11 @@
 import { useRouter } from "next/router";
 import React from "react";
 import { prefix } from "../../../pages/_app";
+import { useAppDispatch } from "../../Reduxhooks";
+import { handleToken } from "../ReduxSlices/CookiesSlice";
+import { HandleMenuMobile } from "../ReduxSlices/counterSlice";
 import {
+  CloseMenu,
   DivImgArrow,
   DivImgIcon,
   DivImgLogo,
@@ -13,6 +17,7 @@ import {
   ImgIcon,
   ImgLogo,
   ImgRightArrow,
+  PCloseSession,
   PMarkTextq,
   PText,
 } from "./styledleftnav";
@@ -55,20 +60,37 @@ const OptionsNAvigation = [
   },
 ];
 
-const LeftNav = (props: { area: string }) => {
-  const { area } = props;
+const LeftNav = (props: { area: string; show: boolean }) => {
+  const { area, show } = props;
+  const dispatch = useAppDispatch();
   const { pathname, push } = useRouter();
   const HandleNav = (path: string) => {
     push(path);
   };
+
+  const handleCloseMenu = () => {
+    dispatch(HandleMenuMobile());
+  };
+
+  const ClickToLink = (link: string) => {
+    handleCloseMenu();
+    HandleNav(link);
+  };
+
+  const CloseSession = () => {
+    dispatch(handleToken({ access: "", refresh: "" }));
+    handleCloseMenu();
+    push("/login");
+  };
   return (
-    <DivLeftNavContainer area={area}>
+    <DivLeftNavContainer area={area} show={show.toString()}>
       <DivImgLogo>
         <ImgLogo
           alt="logo"
           src={prefix + require("../../../../assets/image/logo.png")}
         />
       </DivImgLogo>
+      <CloseMenu onClick={handleCloseMenu}>X</CloseMenu>
       <DivOptions>
         <DivOptionsCenter>
           {OptionsNAvigation.map((item: optionsModel, index: number) => {
@@ -77,7 +99,7 @@ const LeftNav = (props: { area: string }) => {
             if (pathname.includes(link)) background = true;
             return (
               <DivTextOption
-                onClick={() => HandleNav(link)}
+                onClick={() => ClickToLink(link)}
                 key={index}
                 bg={background.toString()}
               >
@@ -98,6 +120,7 @@ const LeftNav = (props: { area: string }) => {
           })}
         </DivOptionsCenter>
       </DivOptions>
+      <PCloseSession onClick={CloseSession}>Cerrar sesion</PCloseSession>
       <DivMarcasText>
         <PMarkTextq>Fustadesing</PMarkTextq>
         <PMarkTextq>All right reserved</PMarkTextq>

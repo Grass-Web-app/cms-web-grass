@@ -74,31 +74,37 @@ const DescriptionsList = (props: {
         <PWhere>Lista de Descripciones</PWhere>
       </DivAddNew>
       <DivListOptions>
-        <DivUpperList up>
+        <DivUpperList icon={"false"} up>
           <PtitleUpper>#Numero</PtitleUpper>
           <PtitleUpper>Title</PtitleUpper>
-          <PtitleUpper></PtitleUpper>
+
           <PtitleUpper>#Catalogo</PtitleUpper>
           <PtitleUpper>Options</PtitleUpper>
         </DivUpperList>
         {DescriptionListState.length !== 0 &&
-          DescriptionListState.map((item: IDescriptionOnlyList, index: number) => {
-            let bottom = false;
-            if (DescriptionListState.length === index + 1) bottom = true;
-            return (
-              <DivUpperList bot={bottom.toString()} key={item.id}>
-                <Catalog
-                  endpointErase={"catalogues/big-description/"}
-                  id={item.id}
-                  title={item.title}
-                  subtitle={`#${item.catalogue}`}
-                  icon={null}
-                  setcatalog={() => setData(item)}
-                  fnErase={() => Get(token.access)}
-                />
-              </DivUpperList>
-            );
-          })}
+          DescriptionListState.map(
+            (item: IDescriptionOnlyList, index: number) => {
+              let bottom = false;
+              if (DescriptionListState.length === index + 1) bottom = true;
+              return (
+                <DivUpperList
+                  icon={"false"}
+                  bot={bottom.toString()}
+                  key={item.id}
+                >
+                  <Catalog
+                    endpointErase={"catalogues/big-description/"}
+                    id={item.id}
+                    title={item.title}
+                    subtitle={`#${item.catalogue}`}
+                    icon={null}
+                    setcatalog={() => setData(item)}
+                    fnErase={() => Get(token.access)}
+                  />
+                </DivUpperList>
+              );
+            }
+          )}
       </DivListOptions>
     </DivContainerCatalog>
   );

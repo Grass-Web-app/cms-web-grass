@@ -32,19 +32,22 @@ export const DivContainer = styled.div`
 `;
 
 export const DivLogin = styled.div`
-  width: 25rem;
-  height: 25rem;
+  width: 95%;
   background: white;
   border-radius: 16px;
   padding: 2rem;
+  @media (min-width: 1020px) {
+    width: 25rem;
+    height: 25rem;
+  }
 `;
 
 export const Plogin = styled.p`
   padding: 0;
   margin: 0;
   width: 100%;
+  font-size: 1rem;
   text-align: center;
-  font-size: 1vw;
   margin-bottom: 32px;
 `;
 
@@ -61,6 +64,7 @@ export const InputLogin = styled.input`
   width: 100%;
   height: 60px;
   outline: none;
+  font-size: 1rem;
 `;
 
 export const ButtonLogin = styled.button`
@@ -68,7 +72,10 @@ export const ButtonLogin = styled.button`
   height: 60px;
   border-radius: 8px;
   cursor: pointer;
-  background: #66f2a3;
+  background: ${(props) =>
+    props.dissabled === "true" ? "#E5E7EB" : "#286579"};
+  color: ${(props) => (props.dissabled === "true" ? "#9CA3AF" : "white")};
+  font-size: 1rem;
 `;
 
 export const PRegister = styled.p`

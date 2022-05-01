@@ -3,14 +3,29 @@ import styled from "styled-components";
 export const DivLeftNavContainer = styled.div`
   grid-area: ${(props) => props.area};
   background: #c7e6fa;
-  display: flex;
+  display: ${(props) => (props.show === "false" ? "none" : "flex")};
+  height: 100%;
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
+  position: relative;
   padding-top: 5%;
   padding-bottom: 5%;
+  @media (min-width: 1020px) {
+    display: flex;
+  }
 `;
-
+export const CloseMenu = styled.button`
+  position: absolute;
+  border: none;
+  background: transparent;
+  right: 16px;
+  top: 16px;
+  margin: auto;
+  @media (min-width: 1020px) {
+    display: none;
+  }
+`;
 export const DivImgLogo = styled.div`
   width: 50%;
 `;
@@ -38,7 +53,7 @@ export const DivTextOption = styled.div`
 
 export const PText = styled.p`
   margin-left: 5%;
-  font-size: 1vw;
+  font-size: 1rem;
 `;
 
 export const DivImgIcon = styled.div`
@@ -80,4 +95,20 @@ export const PMarkTextq = styled.p`
   width: 100%;
   text-align: center;
   margin: 0;
+`;
+
+export const PCloseSession = styled.p`
+  text-align: center;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-right: 10px;
+  padding-left: 10px;
+  border-radius: 1000px;
+  background: #124759;
+  color: white;
+  @media (min-width: 1020px) {
+    display: none;
+  }
 `;

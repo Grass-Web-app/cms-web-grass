@@ -78,7 +78,7 @@ const CardsList = (props: {
           <PtitleUpper>Title</PtitleUpper>
           <PtitleUpper>Picture</PtitleUpper>
           <PtitleUpper>Subtitle</PtitleUpper>
-          <PtitleUpper></PtitleUpper>
+          <PtitleUpper>opciones</PtitleUpper>
         </DivUpperList>
         {CardList.length !== 0 &&
           CardList.map((item: IDataCards, index: number) => {

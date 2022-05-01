@@ -77,7 +77,7 @@ const CarouselList = (props: {
           <PtitleUpper>Title</PtitleUpper>
           <PtitleUpper>Picture</PtitleUpper>
           <PtitleUpper>Description</PtitleUpper>
-          <PtitleUpper></PtitleUpper>
+          <PtitleUpper>opciones</PtitleUpper>
         </DivUpperList>
         {CarouselList.length !== 0 &&
           CarouselList.map((item: IDataCarousels, index: number) => {

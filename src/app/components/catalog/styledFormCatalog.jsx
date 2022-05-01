@@ -8,14 +8,13 @@ const borderRed = `
 
 export const DivContainerFormCatalog = styled.div`
   padding: 2%;
+  background: #f3f4f6;
 `;
 
 export const DivFormulary = styled.div`
   border-radius: 15px;
-
-  background: white;
+  background: #d7dce6;
   padding: 1%;
-  height: 100%;
   overflow: scroll;
 `;
 
@@ -25,12 +24,15 @@ export const ButtonBackArrow = styled.button`
   align-items: center;
   width: fit-content;
   height: 35px;
-  font-size: 2rem;
+  font-size: 1.5rem;
   cursor: pointer;
   background: transparent;
   border-radius: 15px;
   &:hover {
     background: #ddfaeb;
+  }
+  @media (min-width: 1020px) {
+    font-size: 2rem;
   }
 `;
 
