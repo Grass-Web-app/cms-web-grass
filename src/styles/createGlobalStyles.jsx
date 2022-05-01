@@ -3,7 +3,7 @@ import { createGlobalStyle } from "styled-components";
 export const ColorPrimary = "black";
 export const ColorSecondary = "white";
 
-export const BackPrimary = "#DDEBE1";
+export const BackPrimary = "#f3f4f6";
 export const BackSecondary = "#18191a";
 export const BackTerciary = "#202c36";
 

@@ -1,10 +1,13 @@
 import { useRouter } from "next/router";
 import React, { useState } from "react";
+
 import { prefix } from "../../../pages/_app";
-import { useAppDispatch, useAppSelector } from "../../Reduxhooks";
-import { handleToken, Token } from "../ReduxSlices/CookiesSlice";
+import { useAppDispatch } from "../../Reduxhooks";
+import { handleToken } from "../ReduxSlices/CookiesSlice";
+import { HandleMenuMobile } from "../ReduxSlices/counterSlice";
 import {
   DivArrow,
+  DivBurguer,
   DivHeaderContainer,
   DivImgAvatar,
   DivOptions,
@@ -13,15 +16,16 @@ import {
   DivUsuarioAvatar,
   ImgArrow,
   ImgAvatar,
+  PMobile,
   Poptions,
   PUser,
   Title,
 } from "./styledheader";
 
 const Header = (props: { area: string }) => {
+  const dispatch = useAppDispatch();
   const { area } = props;
   const { push } = useRouter();
-  const dispatch = useAppDispatch();
 
   const [arrow, setArrow] = useState(false);
   const [options, setOptions] = useState(false);
@@ -46,12 +50,18 @@ const Header = (props: { area: string }) => {
     setArrow(false);
     setOptions(false);
   };
-
   return (
     <DivHeaderContainer area={area}>
       <DivTitle>
         <Title>Bienvenido al cms</Title>
       </DivTitle>
+      <PMobile>Bienvenido al cms</PMobile>
+      <DivBurguer onClick={() => dispatch(HandleMenuMobile())}>
+        <img
+          style={{ width: "100%", height: "100%" }}
+          src={require("../../../../assets/icons/menuMobile.svg")}
+        />
+      </DivBurguer>
       <DivUsuarioAvatar>
         <PUser>Fustadesing</PUser>
         <DivUserArrow onClick={handleOptions}>

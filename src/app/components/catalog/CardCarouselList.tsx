@@ -76,10 +76,9 @@ const CardCarouselList = (props: {
         <PWhere>Lista de Cards Carousel</PWhere>
       </DivAddNew>
       <DivListOptions>
-        <DivUpperList up>
+        <DivUpperList icon={"false"} up>
           <PtitleUpper>#Numero</PtitleUpper>
           <PtitleUpper>Title</PtitleUpper>
-          <PtitleUpper></PtitleUpper>
           <PtitleUpper>#Catalogo</PtitleUpper>
           <PtitleUpper>Options</PtitleUpper>
         </DivUpperList>
@@ -89,7 +88,11 @@ const CardCarouselList = (props: {
               let bottom = false;
               if (CardCarouselState.length === index + 1) bottom = true;
               return (
-                <DivUpperList bot={bottom.toString()} key={item.id}>
+                <DivUpperList
+                  icon={"false"}
+                  bot={bottom.toString()}
+                  key={item.id}
+                >
                   <Catalog
                     endpointErase={"catalogues/big-card-carousel/"}
                     id={item.id}

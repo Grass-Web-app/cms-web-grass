@@ -51,7 +51,7 @@ const Catalog = (props: {
       <DivTextContainer>
         <PtitleUpper>{title}</PtitleUpper>
       </DivTextContainer>
-      <DivImgImglist>
+      <DivImgImglist show={(icon !== null).toString()}>
         {icon !== null && <ImgShowInList alt="image" src={icon} />}
       </DivImgImglist>
       <DivTextContainer>

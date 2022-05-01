@@ -1,20 +1,36 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Head from "next/head";
 import { GlobalStyle } from "../../../styles/createGlobalStyles";
 import BodyColorChange from "../BodyColorChange";
 import { prefix } from "../../../pages/_app";
 import LeftNav from "../LeftNav/LeftNav";
 import Header from "../header/Header";
-import { DivInitWraperContainer } from "./stylesinitwraper";
+import {
+  DivBgBlackModal,
+  DivInitWraperContainer,
+  DivLateralMenu,
+} from "./stylesinitwraper";
 import { useRouter } from "next/router";
-import { useAppSelector } from "../../Reduxhooks";
+import { useAppDispatch, useAppSelector } from "../../Reduxhooks";
 import useAxiosGet from "../Hooks/useAxiosGet";
 import { Token } from "../ReduxSlices/CookiesSlice";
+import {
+  HandleMenuMobile,
+  MenuMobileBurguer,
+} from "../ReduxSlices/counterSlice";
 
 const HeaderFooterWraper = ({ children }) => {
+  const MenuBur = useAppSelector(MenuMobileBurguer);
+  const [opa, setOpa] = useState(false);
+  const dispatch = useAppDispatch();
   const { push } = useRouter();
   const token = useAppSelector(Token);
   const { Get } = useAxiosGet("users/my-profile/", {
+    completeInterceptor: {
+      action: () => {
+        setOpa(true);
+      },
+    },
     errorInterceptor: {
       action: () => {
         push("/login");
@@ -27,9 +43,16 @@ const HeaderFooterWraper = ({ children }) => {
     } else push("/login");
   }, []);
   return (
-    <DivInitWraperContainer>
+    <DivInitWraperContainer opa={opa.toString()}>
       <GlobalStyle />
       <BodyColorChange />
+      <DivBgBlackModal
+        show={MenuBur.toString()}
+        onClick={() => dispatch(HandleMenuMobile())}
+      ></DivBgBlackModal>
+      <DivLateralMenu show={MenuBur.toString()}>
+        <LeftNav area="left" show={true} />
+      </DivLateralMenu>
       <Head>
         <title>El Hector</title>
         <link
@@ -39,7 +62,7 @@ const HeaderFooterWraper = ({ children }) => {
       </Head>
       <Header area="nav" />
       {children}
-      <LeftNav area="left" />
+      <LeftNav area="left" show={false} />
     </DivInitWraperContainer>
   );
 };

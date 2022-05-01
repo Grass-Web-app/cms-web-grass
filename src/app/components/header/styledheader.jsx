@@ -12,7 +12,27 @@ export const DivHeaderContainer = styled.div`
 `;
 
 export const DivTitle = styled.div`
-  width: 30%;
+  display: none;
+  @media (min-width: 1020px) {
+    display: block;
+  }
+`;
+export const PMobile = styled.h3`
+  padding-left: 10px;
+  @media (min-width: 1020px) {
+    display: none;
+  }
+`;
+export const DivBurguer = styled.button`
+  height: 30px;
+  width: 30px;
+  border: none;
+  background: transparent;
+  padding: 0;
+  margin-right: 10px;
+  @media (min-width: 1020px) {
+    display: none;
+  }
 `;
 export const Title = styled.h3`
   width: 100%;
@@ -32,13 +52,21 @@ export const ImgAvatar = styled.img`
 
 export const DivUsuarioAvatar = styled.div`
   width: 20%;
-  display: flex;
+
   justify-content: space-around;
   position: relative;
+  display: none;
+  @media (min-width: 1020px) {
+    display: flex;
+  }
 `;
 
 export const PUser = styled.p`
   text-align: center;
+  display: none;
+  @media (min-width: 1020px) {
+    display: block;
+  }
 `;
 export const DivArrow = styled.div`
   display: flex;
@@ -55,8 +83,11 @@ export const ImgArrow = styled.img`
 `;
 
 export const DivUserArrow = styled.div`
-  display: flex;
   cursor: pointer;
+  display: none;
+  @media (min-width: 1020px) {
+    display: flex;
+  }
 `;
 
 export const DivOptions = styled.div`

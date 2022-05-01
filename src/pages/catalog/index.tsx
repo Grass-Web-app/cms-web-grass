@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import CardCarouselList, {
   ICardCarouselOnlyList,
 } from "../../app/components/catalog/CardCarouselList";
@@ -18,8 +18,10 @@ import FormPicsDescriptions from "../../app/components/catalog/FormPicsDescripti
 import HeaderList from "../../app/components/catalog/HeaderList";
 import {
   ButtonOptions,
+  ButtonShowOptions,
   DivButtonsContainer,
   DivContainerOptions,
+  PWho,
 } from "../../app/components/catalog/MenuinCatalogueStyled";
 import PicsDescriptionsList, {
   IPicDesOnlyList,
@@ -34,6 +36,13 @@ const initMenuOption = {
   BigCarousel: false,
   CarouselDescription: false,
 };
+const initPosotions = {
+  Catalogue: 60,
+  header: 60,
+  bigDescription: 60,
+  BigCarousel: 60,
+  CarouselDescription: 60,
+};
 
 const index = () => {
   const [MenuOption, setMenuOption] = useState({
@@ -43,11 +52,14 @@ const index = () => {
     BigCarousel: false,
     CarouselDescription: false,
   });
+  const [SelectedMobile, setSelectedMobile] = useState("Catalogue");
+  const [HandleShowMobile, setHandleShowMobile] = useState(false);
   const [AddListCatalogue, setAddListCatalogue] = useState(false);
   const [AddListHeader, setAddListHeader] = useState(false);
   const [AddListDescription, setAddListDescription] = useState(false);
   const [AddListCardCarousel, setAddListCardCarousel] = useState(false);
   const [AddListPicsDescriptions, setAddListPicsDescriptions] = useState(false);
+  const [Positions, setPositions] = useState(initPosotions);
   const [EditDataCatalogue, setEditDataCatalogue] =
     useState<null | IcatalogOnlyList>(null);
   const [EdithDataHeader, setEdithDataHeader] =
@@ -81,46 +93,105 @@ const index = () => {
   };
   //header bigdescription bigcardCarousel carouselDescription
 
+  const GetNameMenu = (name: string) => {
+    setSelectedMobile(name);
+    setHandleShowMobile(!HandleShowMobile);
+    setPositions(initPosotions);
+  };
   const handleMenuOption = {
-    Catalogue: () => setMenuOption({ ...initMenuOption, Catalogue: true }),
-    Header: () => setMenuOption({ ...initMenuOption, header: true }),
-    bigDescription: () =>
-      setMenuOption({ ...initMenuOption, bigDescription: true }),
-    bigCarousel: () => setMenuOption({ ...initMenuOption, BigCarousel: true }),
-    CarouselDescription: () =>
-      setMenuOption({ ...initMenuOption, CarouselDescription: true }),
+    Catalogue: () => {
+      setMenuOption({ ...initMenuOption, Catalogue: true });
+      GetNameMenu("Catalogo");
+    },
+    Header: () => {
+      setMenuOption({ ...initMenuOption, header: true });
+      GetNameMenu("Headers");
+    },
+    bigDescription: () => {
+      setMenuOption({ ...initMenuOption, bigDescription: true });
+      GetNameMenu("Descripciones");
+    },
+    bigCarousel: () => {
+      setMenuOption({ ...initMenuOption, BigCarousel: true });
+      GetNameMenu("Card Carousel");
+    },
+    CarouselDescription: () => {
+      setMenuOption({ ...initMenuOption, CarouselDescription: true });
+      GetNameMenu("Pictures Descripciones");
+    },
+  };
+  useEffect(() => {
+    if (HandleShowMobile) {
+      setTimeout(() => {
+        setPositions({
+          Catalogue: 60,
+          header: 120,
+          bigDescription: 180,
+          BigCarousel: 240,
+          CarouselDescription: 300,
+        });
+      }, 10);
+    } else setPositions(initPosotions);
+  }, [HandleShowMobile]);
+
+  const handleShowOptions = () => {
+    if (!HandleShowMobile) setHandleShowMobile(!HandleShowMobile);
+    else {
+      setTimeout(() => {
+        setHandleShowMobile(!HandleShowMobile);
+      }, 1000);
+      setPositions(initPosotions);
+    }
   };
   return (
     <HeaderFooterWraper>
       <DivButtonsContainer>
         <DivContainerOptions>
+          <ButtonShowOptions onClick={handleShowOptions}>
+            <img
+              style={{ width: "100%", height: "100%" }}
+              src={require("../../../assets/icons/mano.svg")}
+            />
+            <PWho show={HandleShowMobile.toString()}>{SelectedMobile}</PWho>
+          </ButtonShowOptions>
+
           <ButtonOptions
             selected={MenuOption.Catalogue.toString()}
             onClick={() => handleMenuOption.Catalogue()}
+            show={HandleShowMobile.toString()}
+            top={Positions.Catalogue}
           >
             Catalogue
           </ButtonOptions>
           <ButtonOptions
             selected={MenuOption.header.toString()}
             onClick={() => handleMenuOption.Header()}
+            show={HandleShowMobile.toString()}
+            top={Positions.header}
           >
             Headers
           </ButtonOptions>
           <ButtonOptions
             selected={MenuOption.bigDescription.toString()}
             onClick={() => handleMenuOption.bigDescription()}
+            show={HandleShowMobile.toString()}
+            top={Positions.bigDescription}
           >
             Descriptions
           </ButtonOptions>
           <ButtonOptions
             selected={MenuOption.BigCarousel.toString()}
             onClick={() => handleMenuOption.bigCarousel()}
+            show={HandleShowMobile.toString()}
+            top={Positions.BigCarousel}
           >
             CardCarousel
           </ButtonOptions>
           <ButtonOptions
             selected={MenuOption.CarouselDescription.toString()}
             onClick={() => handleMenuOption.CarouselDescription()}
+            show={HandleShowMobile.toString()}
+            top={Positions.CarouselDescription}
           >
             PicturesDescriptions
           </ButtonOptions>
