@@ -58,6 +58,11 @@ export const ButtonAceptarCancel = styled.button`
   border: none;
   cursor: pointer;
   opacity: ${(props) => props.disabled === "true" && "0.5"};
+  background: ${(props) => props.disabled === "true" && "#d6d8d9"};
+  &:hover {
+    background: #286579;
+    color: white;
+  }
 `;
 
 export const DivInputContainer = styled.div`

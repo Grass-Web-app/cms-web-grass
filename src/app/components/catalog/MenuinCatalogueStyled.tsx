@@ -84,4 +84,7 @@ export const PWho = styled.p`
   padding-right: 32px;
   margin-left: 10px;
   ${Selected}
+  @media (min-width: 1020px) {
+    display: none;
+  }
 `;

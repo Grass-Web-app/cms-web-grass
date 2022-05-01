@@ -165,7 +165,8 @@ export const POption = styled.p`
   display: flex;
   align-items: center;
   &:hover {
-    background: #f0f0f0;
+    background: #286579;
+    color: white;
   }
 `;
 

@@ -23,6 +23,12 @@ import {
 import useAxiosPatch from "../Hooks/useAxiosPatch";
 import useAxiosPost from "../Hooks/useAxiosPost";
 import { Token } from "../ReduxSlices/CookiesSlice";
+import {
+  ErrorCreateMessageToast,
+  ErrorEdithMessageToast,
+  SuccessCreateMessageToast,
+  SuccessEdithMessageToast,
+} from "../ToastFunctions/toast-functions";
 import { IEngineredOnlyList } from "./EngiList";
 interface IEngineered {
   title: string;
@@ -55,12 +61,14 @@ const FormEng = (props: {
   const { Post } = useAxiosPost("grasses/", {
     completeInterceptor: {
       action: () => {
+        SuccessCreateMessageToast(BodyGrassData.title);
         addNew(!stateNew);
       },
     },
     errorInterceptor: {
       message: "No se obtuvieron los datos de la creacion",
       action: () => {
+        ErrorCreateMessageToast(BodyGrassData.title);
         setDisabledButton(false);
       },
     },
@@ -68,6 +76,7 @@ const FormEng = (props: {
   const { Patch } = useAxiosPatch(`grasses/${edithData?.id}/`, {
     completeInterceptor: {
       action: () => {
+        SuccessEdithMessageToast(BodyGrassData.title);
         addNew(!stateNew);
       },
     },
@@ -75,6 +84,7 @@ const FormEng = (props: {
       message: "No se obtuvieron los datos de la creacion",
       action: () => {
         setDisabledButton(false);
+        ErrorEdithMessageToast(BodyGrassData.title);
       },
     },
   });
@@ -249,7 +259,7 @@ const FormEng = (props: {
             disabled={DisabledButton}
             onClick={handleEdithorCreate}
           >
-            Aceptar
+            {edithData !== null ? "Editar" : "Aceptar"}
           </ButtonAceptarCancel>
         </DivButtons>
       </DivFormulary>

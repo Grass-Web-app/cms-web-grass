@@ -65,7 +65,7 @@ const EngiList = (props: {
     <DivContainerCatalog>
       <DivAddNew>
         <ButtonAddList
-          disabled={EngineeredList.length > 6}
+          disabled={EngineeredList.length > 5}
           onClick={handleNewData}
         >
           <TextAdd>Agregar nueva</TextAdd>

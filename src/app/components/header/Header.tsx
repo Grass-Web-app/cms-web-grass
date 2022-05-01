@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import React, { useState } from "react";
-
+import { Toaster } from "react-hot-toast";
 import { prefix } from "../../../pages/_app";
 import { useAppDispatch } from "../../Reduxhooks";
 import { handleToken } from "../ReduxSlices/CookiesSlice";
@@ -52,6 +52,7 @@ const Header = (props: { area: string }) => {
   };
   return (
     <DivHeaderContainer area={area}>
+      <Toaster position="top-right" />
       <DivTitle>
         <Title>Bienvenido al cms</Title>
       </DivTitle>

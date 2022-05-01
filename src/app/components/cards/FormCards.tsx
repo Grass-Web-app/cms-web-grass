@@ -23,6 +23,12 @@ import {
 import useAxiosPatch from "../Hooks/useAxiosPatch";
 import useAxiosPost from "../Hooks/useAxiosPost";
 import { Token } from "../ReduxSlices/CookiesSlice";
+import {
+  ErrorCreateMessageToast,
+  ErrorEdithMessageToast,
+  SuccessCreateMessageToast,
+  SuccessEdithMessageToast,
+} from "../ToastFunctions/toast-functions";
 import { IDataCards } from "./CardsList";
 interface ICards {
   title: string;
@@ -62,12 +68,14 @@ const FormCards = (props: {
   const { Post } = useAxiosPost("big-cards/", {
     completeInterceptor: {
       action: () => {
+        SuccessCreateMessageToast(BodyGrassData.title);
         addNew(!stateNew);
       },
     },
     errorInterceptor: {
       message: "No se obtuvieron los datos de la creacion",
       action: () => {
+        ErrorCreateMessageToast(BodyGrassData.title);
         setDisabledButton(false);
       },
     },
@@ -75,12 +83,14 @@ const FormCards = (props: {
   const { Patch } = useAxiosPatch(`big-cards/${edithData?.id}/`, {
     completeInterceptor: {
       action: () => {
+        SuccessEdithMessageToast(BodyGrassData.title);
         addNew(!stateNew);
       },
     },
     errorInterceptor: {
       message: "No se obtuvieron los datos de la creacion",
       action: () => {
+        ErrorEdithMessageToast(BodyGrassData.title);
         setDisabledButton(false);
       },
     },
@@ -248,7 +258,7 @@ const FormCards = (props: {
             disabled={DisabledButton}
             onClick={handleEdithorCreate}
           >
-            Aceptar
+            {edithData !== null ? "Editar" : "Aceptar"}
           </ButtonAceptarCancel>
         </DivButtons>
       </DivFormulary>
