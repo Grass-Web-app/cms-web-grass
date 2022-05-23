@@ -53,6 +53,11 @@ const OptionsNAvigation = [
     icon: require("../../../../assets/icons/caja.svg"),
     link: "/cards",
   },
+  {
+    title: "Footer",
+    icon: require("../../../../assets/icons/voluta.svg"),
+    link: "/footer",
+  },
 ];
 
 const LeftNav = (props: { area: string; show: boolean }) => {

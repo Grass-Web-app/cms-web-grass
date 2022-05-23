@@ -42,6 +42,7 @@ const HeaderFooterWraper = ({ children }) => {
       Get(token.access);
     } else push("/login");
   }, []);
+
   return (
     <DivInitWraperContainer opa={opa.toString()}>
       <GlobalStyle />
