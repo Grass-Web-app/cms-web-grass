@@ -9,13 +9,13 @@ const borderRed = `
 export const DivContainerFormCatalog = styled.div`
   padding: 2%;
   background: #f3f4f6;
+  overflow: scroll;
 `;
 
 export const DivFormulary = styled.div`
   border-radius: 15px;
   background: #d7dce6;
   padding: 1%;
-  overflow: scroll;
 `;
 
 export const ButtonBackArrow = styled.button`
@@ -213,3 +213,10 @@ export const ImgBenefit = styled.img`
   height: 100%;
   width: auto;
 `;
+
+export const DivCheck = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
+export const InputCheck = styled.input``;
