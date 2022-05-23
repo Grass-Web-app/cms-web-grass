@@ -196,7 +196,7 @@ const FormFooter = (props: {
       formData.append("have_instagram", `${haveInstagram}`);
       formData.append("have_linkedIn", `${haveLinked}`);
 
-      formData.append("pinterest", getSocialMediaValue(haveFace, Facebook));
+      formData.append("facebook", getSocialMediaValue(haveFace, Facebook));
       formData.append(
         "pinterest",
         getSocialMediaValue(havePinterest, Pinterest)
@@ -266,7 +266,7 @@ const FormFooter = (props: {
       formData.append("have_instagram", `${haveInstagram}`);
       formData.append("have_linkedIn", `${haveLinked}`);
 
-      formData.append("pinterest", getSocialMediaValue(haveFace, Facebook));
+      formData.append("facebook", getSocialMediaValue(haveFace, Facebook));
       formData.append(
         "pinterest",
         getSocialMediaValue(havePinterest, Pinterest)
