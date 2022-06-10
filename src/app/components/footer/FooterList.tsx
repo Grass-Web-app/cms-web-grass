@@ -94,7 +94,7 @@ const FooterList = (props: {
         <DivUpperList up>
           <PtitleUpper>#Numero</PtitleUpper>
           <PtitleUpper>Name</PtitleUpper>
-          <PtitleUpper>Direccion</PtitleUpper>
+          <PtitleUpper>Email</PtitleUpper>
           <PtitleUpper>Options</PtitleUpper>
         </DivUpperList>
         {FooterList.length !== 0 &&
