@@ -5,8 +5,7 @@
   "homepage": "https://hector4like6gorillaz.github.io/",
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
-    "export": "next export",
+    "build": "npm i && next build && next export",
     "start": "next start"
   },
   "dependencies": {

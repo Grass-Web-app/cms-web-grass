@@ -55,10 +55,10 @@ const HeaderFooterWraper = ({ children }) => {
         <LeftNav area="left" show={true} />
       </DivLateralMenu>
       <Head>
-        <title>El Hector</title>
+        <title>CMS-Fustadesign</title>
         <link
           rel="icon"
-          href={prefix + require("../../../../public/logo.svg")}
+          href={prefix + require("../../../../public/pasto.png")}
         />
       </Head>
       <Header area="nav" />

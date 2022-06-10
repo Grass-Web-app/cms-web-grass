@@ -34,6 +34,11 @@ const OptionsNAvigation = [
     link: "/catalog",
   },
   {
+    title: "Titles",
+    icon: require("../../../../assets/icons/titles.svg"),
+    link: "/titles",
+  },
+  {
     title: "Engineered",
     icon: require("../../../../assets/icons/archivo.svg"),
     link: "/engineered",
@@ -87,7 +92,7 @@ const LeftNav = (props: { area: string; show: boolean }) => {
       <DivImgLogo>
         <ImgLogo
           alt="logo"
-          src={prefix + require("../../../../assets/image/logo.png")}
+          src={prefix + require("../../../../assets/logo/pasto.png")}
         />
       </DivImgLogo>
       <CloseMenu onClick={handleCloseMenu}>X</CloseMenu>
